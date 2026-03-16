@@ -3,17 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Utkarsh Lecture Dashboard</title>
 
 <style>
-
 :root{
---bg:#0a0a0a;
+--bg-dark:#0a0a0a;
+--bg-darker:#111;
 --yellow:#facc15;
---border:rgba(250,204,21,.15);
+--yellow-dark:#eab308;
+--yellow-glow:rgba(250,204,21,.18);
 --text:#f5f5f5;
---text-light:#cfcfcf;
+--text-light:#d4d4d4;
+--border:rgba(250,204,21,.14);
 }
 
 *{
@@ -23,113 +24,166 @@ box-sizing:border-box;
 }
 
 body{
-font-family:system-ui;
-background:var(--bg);
+font-family:system-ui,-apple-system,sans-serif;
+background:var(--bg-dark);
 color:var(--text);
-padding:40px 20px;
+min-height:100vh;
+padding:50px 20px;
+
+background-image:
+radial-gradient(circle at 15% 50%,rgba(250,204,21,.06),transparent 25%),
+radial-gradient(circle at 85% 30%,rgba(250,204,21,.04),transparent 35%);
 }
 
 h1{
 text-align:center;
-font-size:2.4rem;
-margin-bottom:30px;
+font-size:2.6rem;
+font-weight:700;
+margin-bottom:50px;
+
 background:linear-gradient(90deg,#facc15,#fef08a,#facc15);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
 
-.controls{
-max-width:1200px;
-margin:auto;
-display:flex;
-gap:12px;
-flex-wrap:wrap;
-justify-content:center;
-margin-bottom:30px;
-}
-
-input,select{
-padding:10px 14px;
-border-radius:8px;
-border:1px solid var(--border);
-background:#111;
-color:white;
-}
-
-.counter{
-text-align:center;
-margin-bottom:20px;
-font-size:.9rem;
-color:var(--text-light);
-}
-
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:22px;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:24px;
 max-width:1400px;
 margin:auto;
 }
 
 .card{
-background:#111;
+background:rgba(20,20,20,.75);
 border:1px solid var(--border);
-border-radius:14px;
-padding:22px;
-transition:.25s;
+border-radius:16px;
+padding:24px;
+backdrop-filter:blur(12px);
+
+transition:.28s;
+position:relative;
+overflow:hidden;
+}
+
+.card::before{
+content:'';
+position:absolute;
+top:0;
+left:0;
+right:0;
+height:3px;
+
+background:linear-gradient(90deg,transparent,var(--yellow),transparent);
+opacity:.5;
 }
 
 .card:hover{
-transform:translateY(-6px);
-box-shadow:0 10px 30px rgba(0,0,0,.5);
+transform:translateY(-8px);
+box-shadow:0 20px 40px rgba(0,0,0,.5),
+0 0 30px var(--yellow-glow);
+
+border-color:rgba(250,204,21,.35);
 }
 
 .title{
-font-size:1.1rem;
+font-size:1.32rem;
 font-weight:600;
-margin-bottom:8px;
+margin-bottom:10px;
 }
 
 .desc{
-font-size:.9rem;
+font-size:.95rem;
 color:var(--text-light);
-margin-bottom:10px;
+line-height:1.5;
+margin-bottom:14px;
 }
 
 .date{
-font-size:.8rem;
+font-size:.82rem;
 color:#777;
-margin-bottom:10px;
+margin-bottom:16px;
 }
 
 .tag{
+font-size:.78rem;
+font-weight:600;
+padding:5px 12px;
+border-radius:30px;
 display:inline-block;
-font-size:.75rem;
-padding:4px 10px;
-border-radius:20px;
-margin-bottom:10px;
+margin-bottom:12px;
 }
 
 .pdf{
-background:rgba(250,204,21,.2);
+background:rgba(250,204,21,.18);
 color:#facc15;
 }
 
 .video{
-background:rgba(239,68,68,.2);
+background:rgba(239,68,68,.18);
 color:#f87171;
 }
 
 .btn{
 display:inline-block;
-padding:8px 16px;
-background:#facc15;
-color:black;
-border-radius:8px;
-text-decoration:none;
+padding:10px 20px;
+
+background:var(--yellow-dark);
+color:#000;
 font-weight:600;
+
+border-radius:10px;
+text-decoration:none;
+
+transition:.22s;
+
+box-shadow:0 4px 14px rgba(250,204,21,.25);
 }
 
+.btn:hover{
+background:var(--yellow);
+transform:translateY(-2px);
+
+box-shadow:0 8px 24px rgba(250,204,21,.4);
+}
+
+/* loading shimmer */
+
+.loading{
+height:150px;
+border-radius:16px;
+
+background:linear-gradient(
+90deg,
+#1a1a1a 25%,
+#2a2a2a 37%,
+#1a1a1a 63%
+);
+
+background-size:400% 100%;
+animation:shimmer 1.3s infinite;
+}
+
+@keyframes shimmer{
+0%{background-position:100% 0}
+100%{background-position:-100% 0}
+}
+
+.error{
+text-align:center;
+color:#f87171;
+font-size:1rem;
+}
+
+@media(max-width:600px){
+
+h1{font-size:2.1rem}
+
+.grid{gap:18px}
+
+.card{padding:20px}
+
+}
 </style>
 </head>
 
@@ -137,30 +191,17 @@ font-weight:600;
 
 <h1>📚 Utkarsh Lecture Dashboard</h1>
 
-<div class="controls">
+<div class="grid" id="grid">
 
-<input id="search" placeholder="🔍 Lecture search...">
-
-<select id="typeFilter">
-<option value="all">All</option>
-<option value="video">Video</option>
-<option value="pdf">PDF</option>
-</select>
-
-<select id="dateSort">
-<option value="new">Newest</option>
-<option value="old">Oldest</option>
-</select>
+<div class="loading"></div>
+<div class="loading"></div>
+<div class="loading"></div>
 
 </div>
 
-<div class="counter" id="counter"></div>
-
-<div class="grid" id="grid"></div>
-
 <script>
 
-let lectures=[]
+const grid=document.getElementById("grid")
 
 fetch("links.txt")
 
@@ -168,7 +209,11 @@ fetch("links.txt")
 
 .then(data=>{
 
+grid.innerHTML=""
+
 let lines=data.split("\n")
+
+let fragment=document.createDocumentFragment()
 
 lines.forEach(line=>{
 
@@ -176,8 +221,8 @@ if(!line.trim()) return
 
 let parts=line.split(/:(.+)/)
 
-let info=parts[0].trim()
-let link=parts[1].trim()
+let info=parts[0]?.trim()||""
+let link=parts[1]?.trim()||"#"
 
 let segments=info.split("||")
 
@@ -187,71 +232,41 @@ let date=segments[2]?.trim()||""
 
 let type=link.includes(".pdf")?"pdf":"video"
 
-lectures.push({title,desc,date,link,type})
+let card=document.createElement("div")
 
-})
+card.className="card"
 
-render()
+card.innerHTML=`
 
-})
+<div class="tag ${type}">${type.toUpperCase()}</div>
 
-function render(){
+<div class="title">${title}</div>
 
-let search=document.getElementById("search").value.toLowerCase()
-let type=document.getElementById("typeFilter").value
-let sort=document.getElementById("dateSort").value
+<div class="desc">${desc}</div>
 
-let filtered=lectures.filter(l=>{
+<div class="date">${date}</div>
 
-return(
-l.title.toLowerCase().includes(search)||
-l.desc.toLowerCase().includes(search)
-)
-
-})
-
-if(type!="all"){
-filtered=filtered.filter(l=>l.type==type)
-}
-
-if(sort=="new"){
-filtered.reverse()
-}
-
-let grid=document.getElementById("grid")
-
-grid.innerHTML=""
-
-filtered.forEach(l=>{
-
-grid.innerHTML+=`
-
-<div class="card">
-
-<div class="tag ${l.type}">${l.type.toUpperCase()}</div>
-
-<div class="title">${l.title}</div>
-
-<div class="desc">${l.desc}</div>
-
-<div class="date">${l.date}</div>
-
-<a class="btn" href="${l.link}" target="_blank">Open</a>
-
-</div>
+<a class="btn" href="${link}" target="_blank">खोलें →</a>
 
 `
 
+fragment.appendChild(card)
+
 })
 
-document.getElementById("counter").innerText=
-`Total Lectures: ${filtered.length}`
+grid.appendChild(fragment)
 
-}
+})
 
-document.getElementById("search").addEventListener("input",render)
-document.getElementById("typeFilter").addEventListener("change",render)
-document.getElementById("dateSort").addEventListener("change",render)
+.catch(()=>{
+
+grid.innerHTML=
+
+`<div class="error">
+⚠️ links.txt लोड नहीं हो पाया
+</div>`
+
+})
 
 </script>
 
