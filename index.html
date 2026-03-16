@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Utkarsh Lecture Dashboard</title>
+
+<style>
+
+:root{
+--bg:#0a0a0a;
+--yellow:#facc15;
+--border:rgba(250,204,21,.15);
+--text:#f5f5f5;
+--text-light:#cfcfcf;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:system-ui;
+background:var(--bg);
+color:var(--text);
+padding:40px 20px;
+}
+
+h1{
+text-align:center;
+font-size:2.4rem;
+margin-bottom:30px;
+background:linear-gradient(90deg,#facc15,#fef08a,#facc15);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.controls{
+max-width:1200px;
+margin:auto;
+display:flex;
+gap:12px;
+flex-wrap:wrap;
+justify-content:center;
+margin-bottom:30px;
+}
+
+input,select{
+padding:10px 14px;
+border-radius:8px;
+border:1px solid var(--border);
+background:#111;
+color:white;
+}
+
+.counter{
+text-align:center;
+margin-bottom:20px;
+font-size:.9rem;
+color:var(--text-light);
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:22px;
+max-width:1400px;
+margin:auto;
+}
+
+.card{
+background:#111;
+border:1px solid var(--border);
+border-radius:14px;
+padding:22px;
+transition:.25s;
+}
+
+.card:hover{
+transform:translateY(-6px);
+box-shadow:0 10px 30px rgba(0,0,0,.5);
+}
+
+.title{
+font-size:1.1rem;
+font-weight:600;
+margin-bottom:8px;
+}
+
+.desc{
+font-size:.9rem;
+color:var(--text-light);
+margin-bottom:10px;
+}
+
+.date{
+font-size:.8rem;
+color:#777;
+margin-bottom:10px;
+}
+
+.tag{
+display:inline-block;
+font-size:.75rem;
+padding:4px 10px;
+border-radius:20px;
+margin-bottom:10px;
+}
+
+.pdf{
+background:rgba(250,204,21,.2);
+color:#facc15;
+}
+
+.video{
+background:rgba(239,68,68,.2);
+color:#f87171;
+}
+
+.btn{
+display:inline-block;
+padding:8px 16px;
+background:#facc15;
+color:black;
+border-radius:8px;
+text-decoration:none;
+font-weight:600;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>📚 Utkarsh Lecture Dashboard</h1>
+
+<div class="controls">
+
+<input id="search" placeholder="🔍 Lecture search...">
+
+<select id="typeFilter">
+<option value="all">All</option>
+<option value="video">Video</option>
+<option value="pdf">PDF</option>
+</select>
+
+<select id="dateSort">
+<option value="new">Newest</option>
+<option value="old">Oldest</option>
+</select>
+
+</div>
+
+<div class="counter" id="counter"></div>
+
+<div class="grid" id="grid"></div>
+
+<script>
+
+let lectures=[]
+
+fetch("links.txt")
+
+.then(res=>res.text())
+
+.then(data=>{
+
+let lines=data.split("\n")
+
+lines.forEach(line=>{
+
+if(!line.trim()) return
+
+let parts=line.split(/:(.+)/)
+
+let info=parts[0].trim()
+let link=parts[1].trim()
+
+let segments=info.split("||")
+
+let title=segments[0]?.trim()||"Lecture"
+let desc=segments[1]?.trim()||""
+let date=segments[2]?.trim()||""
+
+let type=link.includes(".pdf")?"pdf":"video"
+
+lectures.push({title,desc,date,link,type})
+
+})
+
+render()
+
+})
+
+function render(){
+
+let search=document.getElementById("search").value.toLowerCase()
+let type=document.getElementById("typeFilter").value
+let sort=document.getElementById("dateSort").value
+
+let filtered=lectures.filter(l=>{
+
+return(
+l.title.toLowerCase().includes(search)||
+l.desc.toLowerCase().includes(search)
+)
+
+})
+
+if(type!="all"){
+filtered=filtered.filter(l=>l.type==type)
+}
+
+if(sort=="new"){
+filtered.reverse()
+}
+
+let grid=document.getElementById("grid")
+
+grid.innerHTML=""
+
+filtered.forEach(l=>{
+
+grid.innerHTML+=`
+
+<div class="card">
+
+<div class="tag ${l.type}">${l.type.toUpperCase()}</div>
+
+<div class="title">${l.title}</div>
+
+<div class="desc">${l.desc}</div>
+
+<div class="date">${l.date}</div>
+
+<a class="btn" href="${l.link}" target="_blank">Open</a>
+
+</div>
+
+`
+
+})
+
+document.getElementById("counter").innerText=
+`Total Lectures: ${filtered.length}`
+
+}
+
+document.getElementById("search").addEventListener("input",render)
+document.getElementById("typeFilter").addEventListener("change",render)
+document.getElementById("dateSort").addEventListener("change",render)
+
+</script>
+
+</body>
+</html>
