@@ -1,274 +1,851 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en" class="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Utkarsh Lecture Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpha’zzz ♠️ - Daily Utility Hub</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Font: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            400: '#FBBF24',
+                            500: '#F59E0B',
+                            600: '#D97706',
+                        },
+                        darkBg: '#090D14',
+                        cardBg: 'rgba(17, 24, 39, 0.7)',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
 
-<style>
-:root{
---bg-dark:#0a0a0a;
---bg-darker:#111;
---yellow:#facc15;
---yellow-dark:#eab308;
---yellow-glow:rgba(250,204,21,.18);
---text:#f5f5f5;
---text-light:#d4d4d4;
---border:rgba(250,204,21,.14);
-}
+    <style>
+        body {
+            background-color: #090D14;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(245, 158, 11, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(59, 130, 246, 0.05) 0%, transparent 40%);
+            font-family: 'Inter', sans-serif;
+            color: #F3F4F6;
+        }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+        /* Custom Glassmorphism styling */
+        .glass-card {
+            background: rgba(17, 24, 39, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
 
-body{
-font-family:system-ui,-apple-system,sans-serif;
-background:var(--bg-dark);
-color:var(--text);
-min-height:100vh;
-padding:50px 20px;
+        .glass-card:hover {
+            border-color: rgba(245, 158, 11, 0.25);
+            transition: all 0.3s ease;
+        }
 
-background-image:
-radial-gradient(circle at 15% 50%,rgba(250,204,21,.06),transparent 25%),
-radial-gradient(circle at 85% 30%,rgba(250,204,21,.04),transparent 35%);
-}
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(245, 158, 11, 0.3);
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(245, 158, 11, 0.6);
+        }
 
-h1{
-text-align:center;
-font-size:2.6rem;
-font-weight:700;
-margin-bottom:50px;
-
-background:linear-gradient(90deg,#facc15,#fef08a,#facc15);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-gap:24px;
-max-width:1400px;
-margin:auto;
-}
-
-.card{
-background:rgba(20,20,20,.75);
-border:1px solid var(--border);
-border-radius:16px;
-padding:24px;
-backdrop-filter:blur(12px);
-
-transition:.28s;
-position:relative;
-overflow:hidden;
-}
-
-.card::before{
-content:'';
-position:absolute;
-top:0;
-left:0;
-right:0;
-height:3px;
-
-background:linear-gradient(90deg,transparent,var(--yellow),transparent);
-opacity:.5;
-}
-
-.card:hover{
-transform:translateY(-8px);
-box-shadow:0 20px 40px rgba(0,0,0,.5),
-0 0 30px var(--yellow-glow);
-
-border-color:rgba(250,204,21,.35);
-}
-
-.title{
-font-size:1.32rem;
-font-weight:600;
-margin-bottom:10px;
-}
-
-.desc{
-font-size:.95rem;
-color:var(--text-light);
-line-height:1.5;
-margin-bottom:14px;
-}
-
-.date{
-font-size:.82rem;
-color:#777;
-margin-bottom:16px;
-}
-
-.tag{
-font-size:.78rem;
-font-weight:600;
-padding:5px 12px;
-border-radius:30px;
-display:inline-block;
-margin-bottom:12px;
-}
-
-.pdf{
-background:rgba(250,204,21,.18);
-color:#facc15;
-}
-
-.video{
-background:rgba(239,68,68,.18);
-color:#f87171;
-}
-
-.btn{
-display:inline-block;
-padding:10px 20px;
-
-background:var(--yellow-dark);
-color:#000;
-font-weight:600;
-
-border-radius:10px;
-text-decoration:none;
-
-transition:.22s;
-
-box-shadow:0 4px 14px rgba(250,204,21,.25);
-}
-
-.btn:hover{
-background:var(--yellow);
-transform:translateY(-2px);
-
-box-shadow:0 8px 24px rgba(250,204,21,.4);
-}
-
-/* loading shimmer */
-
-.loading{
-height:150px;
-border-radius:16px;
-
-background:linear-gradient(
-90deg,
-#1a1a1a 25%,
-#2a2a2a 37%,
-#1a1a1a 63%
-);
-
-background-size:400% 100%;
-animation:shimmer 1.3s infinite;
-}
-
-@keyframes shimmer{
-0%{background-position:100% 0}
-100%{background-position:-100% 0}
-}
-
-.error{
-text-align:center;
-color:#f87171;
-font-size:1rem;
-}
-
-@media(max-width:600px){
-
-h1{font-size:2.1rem}
-
-.grid{gap:18px}
-
-.card{padding:20px}
-
-}
-</style>
+        /* Pulse glow animation */
+        @keyframes subtle-glow {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+        .glow-effect {
+            animation: subtle-glow 4s infinite ease-in-out;
+        }
+    </style>
 </head>
+<body class="min-h-screen pb-10 flex flex-col justify-between selection:bg-gold-500 selection:text-black">
 
-<body>
+    <!-- TOP HEADER / NAVBAR -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-darkBg/80 border-b border-gray-800 px-4 py-3 sm:px-8">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            
+            <!-- Logo & Title -->
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-gold-500 to-amber-700 flex items-center justify-center text-black font-extrabold text-2xl shadow-lg shadow-gold-500/20">
+                    ♠️
+                </div>
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-black tracking-tight text-white flex items-center gap-2">
+                        Alpha’zzz <span class="text-gold-400 font-normal text-sm sm:text-base border border-gold-500/30 px-2 py-0.5 rounded-full bg-gold-500/10">Private Hub</span>
+                    </h1>
+                    <p class="text-xs text-gray-400">Daily Utility & Productivity Base</p>
+                </div>
+            </div>
 
-<h1>📚 Utkarsh Lecture Dashboard</h1>
+            <!-- User Selector Tabs -->
+            <div class="flex items-center bg-gray-900/90 p-1.5 rounded-xl border border-gray-800 w-full sm:w-auto overflow-x-auto">
+                <span class="text-xs font-semibold text-gray-400 px-2 flex items-center gap-1 hidden sm:flex">
+                    <i class="fa-solid font-xs fa-user text-gold-400"></i> User:
+                </span>
+                <div class="flex space-x-1 w-full sm:w-auto justify-between" id="userTabsContainer">
+                    <!-- User Buttons rendered by JS -->
+                </div>
+            </div>
 
-<div class="grid" id="grid">
+        </div>
+    </header>
 
-<div class="loading"></div>
-<div class="loading"></div>
-<div class="loading"></div>
+    <!-- MAIN DASHBOARD CONTENT -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 pt-6 flex-grow w-full">
+        
+        <!-- Member Greeting Banner -->
+        <div class="mb-6 glass-card p-5 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-4 border-l-4 border-l-gold-500">
+            <div>
+                <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+                    Welcome back, <span id="currentUserName" class="text-gold-400">Pankaj</span> 
+                    <span class="text-xs font-normal text-gray-400 bg-gray-800 px-2 py-0.5 rounded-md">Alpha Member</span>
+                </h2>
+                <p class="text-xs sm:text-sm text-gray-400 mt-1">Your isolated daily space for habits, focus, notes, and utilities.</p>
+            </div>
+            <div class="flex items-center gap-4 text-xs text-gray-400">
+                <div class="flex items-center gap-1.5 bg-gray-900/60 px-3 py-1.5 rounded-lg border border-gray-800">
+                    <i class="fa-regular fa-calendar text-gold-400"></i>
+                    <span id="liveDate">Oct 28, 2026</span>
+                </div>
+                <div class="flex items-center gap-1.5 bg-gray-900/60 px-3 py-1.5 rounded-lg border border-gray-800">
+                    <i class="fa-regular fa-clock text-blue-400"></i>
+                    <span id="liveTime">00:00 AM</span>
+                </div>
+            </div>
+        </div>
 
-</div>
+        <!-- GRID LAYOUT (3 Columns on Desktop) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-<script>
+            <!-- COLUMN 1: FOCUS & SOUNDS -->
+            <div class="space-y-6">
+                
+                <!-- 1. Pomodoro Focus Timer -->
+                <div class="glass-card p-5 relative">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-base font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-stopwatch text-gold-400"></i> Focus Timer
+                        </h3>
+                        <span id="pomoModeLabel" class="text-xs font-semibold px-2 py-0.5 rounded bg-amber-500/20 text-gold-400">
+                            Work Mode
+                        </span>
+                    </div>
 
-const grid=document.getElementById("grid")
+                    <!-- Mode Selectors -->
+                    <div class="grid grid-cols-3 gap-1 bg-gray-900/80 p-1 rounded-lg text-xs font-medium mb-5 border border-gray-800">
+                        <button onclick="setTimerMode('work')" id="modeWork" class="py-1.5 rounded-md text-white bg-gold-500/20 font-bold border border-gold-500/40">Work (25m)</button>
+                        <button onclick="setTimerMode('shortBreak')" id="modeShort" class="py-1.5 rounded-md text-gray-400 hover:text-white">Short (5m)</button>
+                        <button onclick="setTimerMode('longBreak')" id="modeLong" class="py-1.5 rounded-md text-gray-400 hover:text-white">Long (15m)</button>
+                    </div>
 
-fetch("links.txt")
+                    <!-- Countdown Circle / Text -->
+                    <div class="flex flex-col items-center justify-center my-4">
+                        <div class="text-5xl font-black tracking-wider text-white font-mono bg-black/40 px-6 py-4 rounded-2xl border border-gray-800 shadow-inner" id="timerDisplay">
+                            25:00
+                        </div>
+                    </div>
 
-.then(res=>res.text())
+                    <!-- Timer Controls -->
+                    <div class="flex justify-center gap-3 mt-5">
+                        <button id="startTimerBtn" onclick="toggleTimer()" class="flex-1 bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-600 hover:to-amber-700 text-black font-bold py-2.5 px-4 rounded-xl shadow-lg transition duration-200 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-play"></i> Start
+                        </button>
+                        <button onclick="resetTimer()" class="bg-gray-800 hover:bg-gray-700 text-gray-300 font-semibold py-2.5 px-4 rounded-xl border border-gray-700 transition duration-200">
+                            <i class="fa-solid fa-rotate-left"></i>
+                        </button>
+                    </div>
+                </div>
 
-.then(data=>{
+                <!-- 2. Ambient Audio Generator (Web Audio API) -->
+                <div class="glass-card p-5">
+                    <h3 class="text-base font-bold text-white mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-headphones text-blue-400"></i> Ambient Focus Sounds
+                    </h3>
+                    <p class="text-xs text-gray-400 mb-4">Synthesized white noise & relaxing sounds (No external audio files needed).</p>
+                    
+                    <div class="space-y-3">
+                        <!-- Rain Sound -->
+                        <div class="bg-gray-900/60 p-3 rounded-xl border border-gray-800 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center text-sm">
+                                    <i class="fa-solid fa-cloud-rain"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-semibold text-white">Soft Rain</div>
+                                    <div class="text-[10px] text-gray-400">White noise synthesis</div>
+                                </div>
+                            </div>
+                            <button onclick="toggleSound('rain')" id="btnSoundRain" class="w-8 h-8 rounded-full bg-gray-800 border border-gray-700 flex items-center justify-center text-xs text-gray-300 hover:text-white">
+                                <i class="fa-solid fa-play"></i>
+                            </button>
+                        </div>
 
-grid.innerHTML=""
+                        <!-- Lofi Chords Synth -->
+                        <div class="bg-gray-900/60 p-3 rounded-xl border border-gray-800 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center text-sm">
+                                    <i class="fa-solid fa-music"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-semibold text-white">Ambient Drone</div>
+                                    <div class="text-[10px] text-gray-400">Deep chill oscillator waves</div>
+                                </div>
+                            </div>
+                            <button onclick="toggleSound('synth')" id="btnSoundSynth" class="w-8 h-8 rounded-full bg-gray-800 border border-gray-700 flex items-center justify-center text-xs text-gray-300 hover:text-white">
+                                <i class="fa-solid fa-play"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
-let lines=data.split("\n")
+            </div>
 
-let fragment=document.createDocumentFragment()
+            <!-- COLUMN 2: HABITS, TASKS & STICKY NOTES -->
+            <div class="space-y-6">
+                
+                <!-- 3. Daily Habit Matrix -->
+                <div class="glass-card p-5">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-base font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-bullseye text-emerald-400"></i> Daily Habit Tracker
+                        </h3>
+                        <span id="habitPercentText" class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">0% Done</span>
+                    </div>
 
-lines.forEach(line=>{
+                    <!-- Daily Progress Bar -->
+                    <div class="w-full bg-gray-900 rounded-full h-2 mb-4 overflow-hidden border border-gray-800">
+                        <div id="habitProgressBar" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
 
-if(!line.trim()) return
+                    <!-- Habit Checkboxes -->
+                    <div class="space-y-2 text-xs" id="habitsListContainer">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
 
-let parts=line.split(/:(.+)/)
+                <!-- 4. Personal To-Do List -->
+                <div class="glass-card p-5">
+                    <h3 class="text-base font-bold text-white mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-indigo-400"></i> Personal Tasks
+                    </h3>
 
-let info=parts[0]?.trim()||""
-let link=parts[1]?.trim()||"#"
+                    <!-- Task Add Input -->
+                    <form onsubmit="addTask(event)" class="flex gap-2 mb-4">
+                        <input type="text" id="taskInput" placeholder="Add target or task..." class="flex-1 bg-gray-900/90 text-xs text-white border border-gray-700 rounded-xl px-3 py-2 focus:outline-none focus:border-gold-500">
+                        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs px-3 py-2 rounded-xl transition">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </form>
 
-let segments=info.split("||")
+                    <!-- Tasks List -->
+                    <div class="space-y-2 max-h-48 overflow-y-auto pr-1 text-xs" id="tasksListContainer">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
 
-let title=segments[0]?.trim()||"Lecture"
-let desc=segments[1]?.trim()||""
-let date=segments[2]?.trim()||""
+                <!-- 5. Instant Scratchpad / Sticky Note -->
+                <div class="glass-card p-5">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="text-base font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-note-sticky text-amber-400"></i> Quick Scratchpad
+                        </h3>
+                        <span class="text-[10px] text-gray-500 italic">Auto-saves locally</span>
+                    </div>
+                    <textarea id="scratchpadInput" oninput="saveScratchpad()" placeholder="Type temporary notes, phone numbers, links or quick thoughts here..." class="w-full h-28 bg-gray-900/80 text-xs text-gray-200 border border-gray-800 rounded-xl p-3 focus:outline-none focus:border-amber-500/50 resize-none font-sans"></textarea>
+                </div>
 
-let type=link.includes(".pdf")?"pdf":"video"
+            </div>
 
-let card=document.createElement("div")
+            <!-- COLUMN 3: BOOKMARKS & CALCULATOR SUITE -->
+            <div class="space-y-6 md:col-span-2 lg:col-span-1">
+                
+                <!-- 6. Quick Bookmark Launcher -->
+                <div class="glass-card p-5">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-base font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-bookmark text-gold-400"></i> Bookmark Locker
+                        </h3>
+                        <button onclick="toggleAddBookmarkForm()" class="text-xs text-gold-400 hover:underline flex items-center gap-1">
+                            <i class="fa-solid fa-plus text-[10px]"></i> Add Link
+                        </button>
+                    </div>
 
-card.className="card"
+                    <!-- Add Link Form (Hidden by default) -->
+                    <div id="addBookmarkForm" class="hidden bg-gray-900/90 p-3 rounded-xl border border-gray-800 mb-3 space-y-2 text-xs">
+                        <input type="text" id="bmTitleInput" placeholder="Title (e.g. YouTube)" class="w-full bg-gray-950 text-white border border-gray-800 rounded px-2.5 py-1.5 focus:outline-none focus:border-gold-500">
+                        <input type="url" id="bmUrlInput" placeholder="URL (e.g. https://...)" class="w-full bg-gray-950 text-white border border-gray-800 rounded px-2.5 py-1.5 focus:outline-none focus:border-gold-500">
+                        <div class="flex justify-end gap-2 pt-1">
+                            <button type="button" onclick="toggleAddBookmarkForm()" class="px-2 py-1 text-gray-400 hover:text-white">Cancel</button>
+                            <button type="button" onclick="addBookmark()" class="px-3 py-1 bg-gold-500 text-black font-semibold rounded">Save</button>
+                        </div>
+                    </div>
 
-card.innerHTML=`
+                    <!-- Bookmarks Grid -->
+                    <div class="grid grid-cols-2 gap-2 text-xs" id="bookmarksContainer">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
 
-<div class="tag ${type}">${type.toUpperCase()}</div>
+                <!-- 7. Multi-Utility Calculator Suite -->
+                <div class="glass-card p-5">
+                    <h3 class="text-base font-bold text-white mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-calculator text-rose-400"></i> Daily Utility Calculators
+                    </h3>
 
-<div class="title">${title}</div>
+                    <!-- Mini Calc Tabs -->
+                    <div class="flex border-b border-gray-800 mb-4 text-xs font-medium">
+                        <button onclick="switchCalcTab('percentage')" id="calcTab-percentage" class="py-2 px-3 text-gold-400 border-b-2 border-gold-400 font-bold">Percentage</button>
+                        <button onclick="switchCalcTab('date')" id="calcTab-date" class="py-2 px-3 text-gray-400 hover:text-white">Age / Days</button>
+                        <button onclick="switchCalcTab('unit')" id="calcTab-unit" class="py-2 px-3 text-gray-400 hover:text-white">Unit Conv.</button>
+                    </div>
 
-<div class="desc">${desc}</div>
+                    <!-- Tab 1: Percentage & Target Calc -->
+                    <div id="calcSec-percentage" class="space-y-3 text-xs">
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="text-gray-400 block mb-1">Obtained / Part</label>
+                                <input type="number" id="calcPart" oninput="runPercentageCalc()" placeholder="e.g. 450" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-2.5 py-1.5 text-white focus:outline-none focus:border-gold-500">
+                            </div>
+                            <div>
+                                <label class="text-gray-400 block mb-1">Total Amount</label>
+                                <input type="number" id="calcTotal" oninput="runPercentageCalc()" placeholder="e.g. 600" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-2.5 py-1.5 text-white focus:outline-none focus:border-gold-500">
+                            </div>
+                        </div>
+                        <div class="bg-gray-900/80 p-3 rounded-xl border border-gray-800 flex justify-between items-center">
+                            <span class="text-gray-400">Percentage Result:</span>
+                            <span id="calcPercentOutput" class="text-base font-bold text-gold-400">0.00%</span>
+                        </div>
+                    </div>
 
-<div class="date">${date}</div>
+                    <!-- Tab 2: Date & Age Difference -->
+                    <div id="calcSec-date" class="hidden space-y-3 text-xs">
+                        <div>
+                            <label class="text-gray-400 block mb-1">Start Date / Birthdate</label>
+                            <input type="date" id="calcDateStart" onchange="runDateCalc()" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-2.5 py-1.5 text-white focus:outline-none focus:border-gold-500">
+                        </div>
+                        <div>
+                            <label class="text-gray-400 block mb-1">End Date (Default Today)</label>
+                            <input type="date" id="calcDateEnd" onchange="runDateCalc()" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-2.5 py-1.5 text-white focus:outline-none focus:border-gold-500">
+                        </div>
+                        <div class="bg-gray-900/80 p-3 rounded-xl border border-gray-800 text-center">
+                            <div class="text-gray-400">Calculated Difference:</div>
+                            <div id="calcDateOutput" class="text-sm font-bold text-blue-400 mt-1">Select dates to calculate</div>
+                        </div>
+                    </div>
 
-<a class="btn" href="${link}" target="_blank">खोलें →</a>
+                    <!-- Tab 3: Unit Converter -->
+                    <div id="calcSec-unit" class="hidden space-y-3 text-xs">
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="text-gray-400 block mb-1">Category</label>
+                                <select id="unitCategory" onchange="updateUnitOptions()" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-2 py-1.5 text-white focus:outline-none">
+                                    <option value="distance">Distance (km / miles)</option>
+                                    <option value="weight">Weight (kg / lbs)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-gray-400 block mb-1">Value</label>
+                                <input type="number" id="unitVal" oninput="runUnitCalc()" placeholder="Enter value" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-2.5 py-1.5 text-white focus:outline-none">
+                            </div>
+                        </div>
+                        <div class="bg-gray-900/80 p-3 rounded-xl border border-gray-800 text-center">
+                            <div class="text-gray-400">Converted Output:</div>
+                            <div id="calcUnitOutput" class="text-sm font-bold text-emerald-400 mt-1">0</div>
+                        </div>
+                    </div>
 
-`
+                </div>
 
-fragment.appendChild(card)
+            </div>
 
-})
+        </div>
 
-grid.appendChild(fragment)
+    </main>
 
-})
+    <!-- FOOTER -->
+    <footer class="mt-12 border-t border-gray-800/80 py-6 text-center text-xs text-gray-500">
+        <div class="flex items-center justify-center gap-2 mb-1">
+            <span class="text-gold-500">♠️</span> Alpha’zzz Private Circle Dashboard
+        </div>
+        <p>Built for efficiency & daily routine streamline.</p>
+    </footer>
 
-.catch(()=>{
+    <!-- JAVASCRIPT APP LOGIC -->
+    <script>
+        // --- 1. MEMBER USERS STATE MANAGEMENT ---
+        const MEMBERS = [
+            { id: 'pankaj', name: 'Pankaj' },
+            { id: 'member2', name: 'Member 2' },
+            { id: 'member3', name: 'Member 3' },
+            { id: 'member4', name: 'Member 4' }
+        ];
 
-grid.innerHTML=
+        let currentUser = MEMBERS[0]; // Default Pankaj
 
-`<div class="error">
-⚠️ links.txt लोड नहीं हो पाया
-</div>`
+        // Core data structure template for each user
+        const defaultUserData = {
+            habits: [
+                { id: 1, text: "Drink 3 Liters Water", done: false },
+                { id: 2, text: "Daily Exercise / Workout", done: false },
+                { id: 3, text: "Focus Study / Work Target", done: false },
+                { id: 4, text: "Read 10 Pages / Learn Something", done: false }
+            ],
+            tasks: [],
+            scratchpad: "",
+            bookmarks: [
+                { id: 1, title: "Google", url: "https://google.com" },
+                { id: 2, title: "YouTube", url: "https://youtube.com" }
+            ]
+        };
 
-})
+        let userData = {};
 
-</script>
+        // Switch active user space
+        function switchUser(userId) {
+            currentUser = MEMBERS.find(m => m.id === userId) || MEMBERS[0];
+            loadUserData();
+            renderUserTabs();
+            renderDashboardData();
+        }
 
+        // Load specific user's stored data
+        function loadUserData() {
+            const stored = localStorage.getItem(`alphazzz_user_${currentUser.id}`);
+            if (stored) {
+                try {
+                    userData = JSON.parse(stored);
+                } catch(e) {
+                    userData = JSON.parse(JSON.stringify(defaultUserData));
+                }
+            } else {
+                userData = JSON.parse(JSON.stringify(defaultUserData));
+            }
+        }
+
+        // Save active user's current data back to LocalStorage
+        function persistUserData() {
+            localStorage.setItem(`alphazzz_user_${currentUser.id}`, JSON.stringify(userData));
+        }
+
+        // Render User Selection Tabs
+        function renderUserTabs() {
+            const container = document.getElementById('userTabsContainer');
+            container.innerHTML = MEMBERS.map(m => {
+                const isActive = m.id === currentUser.id;
+                return `
+                    <button onclick="switchUser('${m.id}')" class="px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${
+                        isActive 
+                        ? 'bg-gold-500 text-black shadow-md shadow-gold-500/20' 
+                        : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                    }">
+                        <span>♠️</span> ${m.name}
+                    </button>
+                `;
+            }).join('');
+
+            document.getElementById('currentUserName').innerText = currentUser.name;
+        }
+
+        // --- 2. LIVE CLOCK & DATE ---
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('liveDate').innerText = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            document.getElementById('liveTime').innerText = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // --- 3. HABITS TRACKER ---
+        function renderHabits() {
+            const container = document.getElementById('habitsListContainer');
+            if (!userData.habits) userData.habits = [];
+
+            const completedCount = userData.habits.filter(h => h.done).length;
+            const totalCount = userData.habits.length;
+            const percent = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
+
+            document.getElementById('habitPercentText').innerText = `${percent}% Done`;
+            document.getElementById('habitProgressBar').style.width = `${percent}%`;
+
+            container.innerHTML = userData.habits.map(h => `
+                <div onclick="toggleHabit(${h.id})" class="flex items-center justify-between p-2.5 rounded-xl border cursor-pointer transition ${
+                    h.done 
+                    ? 'bg-emerald-950/20 border-emerald-500/30 text-gray-300 line-through' 
+                    : 'bg-gray-900/60 border-gray-800 text-white hover:border-gray-700'
+                }">
+                    <span class="flex items-center gap-2">
+                        <i class="${h.done ? 'fa-solid fa-circle-check text-emerald-400' : 'fa-regular fa-circle text-gray-500'}"></i>
+                        ${h.text}
+                    </span>
+                </div>
+            `).join('');
+        }
+
+        function toggleHabit(id) {
+            const habit = userData.habits.find(h => h.id === id);
+            if (habit) {
+                habit.done = !habit.done;
+                persistUserData();
+                renderHabits();
+            }
+        }
+
+        // --- 4. TO-DO LIST ---
+        function renderTasks() {
+            const container = document.getElementById('tasksListContainer');
+            if (!userData.tasks) userData.tasks = [];
+
+            if (userData.tasks.length === 0) {
+                container.innerHTML = `<div class="text-center py-4 text-gray-500 italic">No pending tasks for today</div>`;
+                return;
+            }
+
+            container.innerHTML = userData.tasks.map(t => `
+                <div class="flex items-center justify-between p-2 rounded-xl bg-gray-900/70 border border-gray-800">
+                    <span onclick="toggleTask(${t.id})" class="cursor-pointer flex items-center gap-2 flex-1 ${t.completed ? 'line-through text-gray-500' : 'text-gray-200'}">
+                        <i class="${t.completed ? 'fa-solid fa-check text-indigo-400' : 'fa-regular fa-square text-gray-600'}"></i>
+                        ${t.text}
+                    </span>
+                    <button onclick="deleteTask(${t.id})" class="text-gray-500 hover:text-rose-400 p-1">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function addTask(e) {
+            e.preventDefault();
+            const input = document.getElementById('taskInput');
+            const text = input.value.trim();
+            if (text) {
+                userData.tasks.push({ id: Date.now(), text, completed: false });
+                input.value = '';
+                persistUserData();
+                renderTasks();
+            }
+        }
+
+        function toggleTask(id) {
+            const task = userData.tasks.find(t => t.id === id);
+            if (task) {
+                task.completed = !task.completed;
+                persistUserData();
+                renderTasks();
+            }
+        }
+
+        function deleteTask(id) {
+            userData.tasks = userData.tasks.filter(t => t.id !== id);
+            persistUserData();
+            renderTasks();
+        }
+
+        // --- 5. SCRATCHPAD ---
+        function renderScratchpad() {
+            document.getElementById('scratchpadInput').value = userData.scratchpad || "";
+        }
+
+        function saveScratchpad() {
+            userData.scratchpad = document.getElementById('scratchpadInput').value;
+            persistUserData();
+        }
+
+        // --- 6. BOOKMARKS ---
+        function renderBookmarks() {
+            const container = document.getElementById('bookmarksContainer');
+            if (!userData.bookmarks) userData.bookmarks = [];
+
+            container.innerHTML = userData.bookmarks.map(b => `
+                <div class="group relative bg-gray-900/80 p-2.5 rounded-xl border border-gray-800 hover:border-gold-500/40 transition flex items-center justify-between">
+                    <a href="${b.url}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-gray-200 hover:text-gold-400 truncate flex-1 pr-2">
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-gold-500"></i>
+                        <span class="truncate font-medium">${b.title}</span>
+                    </a>
+                    <button onclick="deleteBookmark(${b.id})" class="opacity-0 group-hover:opacity-100 text-gray-500 hover:text-rose-400 transition text-[10px]">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function toggleAddBookmarkForm() {
+            document.getElementById('addBookmarkForm').classList.toggle('hidden');
+        }
+
+        function addBookmark() {
+            const title = document.getElementById('bmTitleInput').value.trim();
+            let url = document.getElementById('bmUrlInput').value.trim();
+            if (title && url) {
+                if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                    url = 'https://' + url;
+                }
+                userData.bookmarks.push({ id: Date.now(), title, url });
+                document.getElementById('bmTitleInput').value = '';
+                document.getElementById('bmUrlInput').value = '';
+                toggleAddBookmarkForm();
+                persistUserData();
+                renderBookmarks();
+            }
+        }
+
+        function deleteBookmark(id) {
+            userData.bookmarks = userData.bookmarks.filter(b => b.id !== id);
+            persistUserData();
+            renderBookmarks();
+        }
+
+        // --- 7. POMODORO TIMER ---
+        let timerSeconds = 25 * 60;
+        let timerInterval = null;
+        let timerRunning = false;
+        let currentTimerMode = 'work';
+
+        const modes = {
+            work: { minutes: 25, label: 'Work Mode', colorClass: 'bg-amber-500/20 text-gold-400' },
+            shortBreak: { minutes: 5, label: 'Short Break', colorClass: 'bg-blue-500/20 text-blue-400' },
+            longBreak: { minutes: 15, label: 'Long Break', colorClass: 'bg-purple-500/20 text-purple-400' }
+        };
+
+        function setTimerMode(modeKey) {
+            if (timerRunning) toggleTimer();
+            currentTimerMode = modeKey;
+            timerSeconds = modes[modeKey].minutes * 60;
+            
+            // Highlight active button
+            ['work', 'short', 'long'].forEach(k => {
+                const btn = document.getElementById(`mode${k.charAt(0).toUpperCase() + k.slice(1)}`);
+                if (k.toLowerCase().startsWith(modeKey.substring(0, 4))) {
+                    btn.className = "py-1.5 rounded-md text-white bg-gold-500/20 font-bold border border-gold-500/40";
+                } else {
+                    btn.className = "py-1.5 rounded-md text-gray-400 hover:text-white";
+                }
+            });
+
+            const modeLbl = document.getElementById('pomoModeLabel');
+            modeLbl.innerText = modes[modeKey].label;
+            modeLbl.className = `text-xs font-semibold px-2 py-0.5 rounded ${modes[modeKey].colorClass}`;
+
+            updateTimerDisplay();
+        }
+
+        function updateTimerDisplay() {
+            const m = Math.floor(timerSeconds / 60).toString().padStart(2, '0');
+            const s = (timerSeconds % 60).toString().padStart(2, '0');
+            document.getElementById('timerDisplay').innerText = `${m}:${s}`;
+        }
+
+        function toggleTimer() {
+            const btn = document.getElementById('startTimerBtn');
+            if (timerRunning) {
+                clearInterval(timerInterval);
+                timerRunning = false;
+                btn.innerHTML = `<i class="fa-solid fa-play"></i> Start`;
+            } else {
+                timerRunning = true;
+                btn.innerHTML = `<i class="fa-solid fa-pause"></i> Pause`;
+                timerInterval = setInterval(() => {
+                    if (timerSeconds > 0) {
+                        timerSeconds--;
+                        updateTimerDisplay();
+                    } else {
+                        clearInterval(timerInterval);
+                        timerRunning = false;
+                        btn.innerHTML = `<i class="fa-solid fa-play"></i> Start`;
+                        alert(`Time's up for ${modes[currentTimerMode].label}!`);
+                    }
+                }, 1000);
+            }
+        }
+
+        function resetTimer() {
+            if (timerRunning) toggleTimer();
+            timerSeconds = modes[currentTimerMode].minutes * 60;
+            updateTimerDisplay();
+        }
+
+        // --- 8. SYNTHESIZED AMBIENT AUDIO (Web Audio API) ---
+        let audioCtx = null;
+        let soundSources = { rain: null, synth: null };
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function toggleSound(type) {
+            initAudio();
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            const btn = document.getElementById(type === 'rain' ? 'btnSoundRain' : 'btnSoundSynth');
+
+            if (soundSources[type]) {
+                // Stop sound
+                soundSources[type].stop();
+                soundSources[type] = null;
+                btn.innerHTML = `<i class="fa-solid fa-play"></i>`;
+                btn.classList.remove('bg-gold-500', 'text-black');
+                btn.classList.add('bg-gray-800', 'text-gray-300');
+            } else {
+                // Play Sound
+                if (type === 'rain') {
+                    soundSources.rain = createRainSynth();
+                } else if (type === 'synth') {
+                    soundSources.synth = createAmbientDrone();
+                }
+                btn.innerHTML = `<i class="fa-solid fa-square"></i>`;
+                btn.classList.remove('bg-gray-800', 'text-gray-300');
+                btn.classList.add('bg-gold-500', 'text-black');
+            }
+        }
+
+        function createRainSynth() {
+            const bufferSize = audioCtx.sampleRate * 2;
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const output = buffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+                output[i] = Math.random() * 2 - 1;
+            }
+
+            const whiteNoise = audioCtx.createBufferSource();
+            whiteNoise.buffer = buffer;
+            whiteNoise.loop = true;
+
+            const filter = audioCtx.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(800, audioCtx.currentTime);
+
+            const gain = audioCtx.createGain();
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+
+            whiteNoise.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioCtx.destination);
+            whiteNoise.start();
+
+            return whiteNoise;
+        }
+
+        function createAmbientDrone() {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(110, audioCtx.currentTime); // A2 Note
+
+            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+
+            return osc;
+        }
+
+        // --- 9. CALCULATOR SUITE ---
+        function switchCalcTab(tabKey) {
+            ['percentage', 'date', 'unit'].forEach(t => {
+                document.getElementById(`calcSec-${t}`).classList.add('hidden');
+                document.getElementById(`calcTab-${t}`).className = "py-2 px-3 text-gray-400 hover:text-white";
+            });
+
+            document.getElementById(`calcSec-${tabKey}`).classList.remove('hidden');
+            document.getElementById(`calcTab-${tabKey}`).className = "py-2 px-3 text-gold-400 border-b-2 border-gold-400 font-bold";
+        }
+
+        function runPercentageCalc() {
+            const part = parseFloat(document.getElementById('calcPart').value) || 0;
+            const total = parseFloat(document.getElementById('calcTotal').value) || 0;
+            const output = document.getElementById('calcPercentOutput');
+            
+            if (total > 0) {
+                const pct = ((part / total) * 100).toFixed(2);
+                output.innerText = `${pct}%`;
+            } else {
+                output.innerText = '0.00%';
+            }
+        }
+
+        function runDateCalc() {
+            const startStr = document.getElementById('calcDateStart').value;
+            const endStr = document.getElementById('calcDateEnd').value || new Date().toISOString().split('T')[0];
+            const output = document.getElementById('calcDateOutput');
+
+            if (startStr) {
+                const d1 = new Date(startStr);
+                const d2 = new Date(endStr);
+                const diffTime = Math.abs(d2 - d1);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                const years = (diffDays / 365.25).toFixed(1);
+
+                output.innerText = `${diffDays} Days (~${years} Years)`;
+            } else {
+                output.innerText = 'Select dates to calculate';
+            }
+        }
+
+        function updateUnitOptions() {
+            runUnitCalc();
+        }
+
+        function runUnitCalc() {
+            const cat = document.getElementById('unitCategory').value;
+            const val = parseFloat(document.getElementById('unitVal').value) || 0;
+            const output = document.getElementById('calcUnitOutput');
+
+            if (cat === 'distance') {
+                const miles = (val * 0.621371).toFixed(2);
+                output.innerText = `${val} km = ${miles} Miles`;
+            } else if (cat === 'weight') {
+                const lbs = (val * 2.20462).toFixed(2);
+                output.innerText = `${val} kg = ${lbs} lbs`;
+            }
+        }
+
+        // Render all data when switching user or initial load
+        function renderDashboardData() {
+            renderHabits();
+            renderTasks();
+            renderScratchpad();
+            renderBookmarks();
+        }
+
+        // Initial Initialization on page load
+        window.onload = function() {
+            loadUserData();
+            renderUserTabs();
+            renderDashboardData();
+            // Set default date picker end date to today
+            document.getElementById('calcDateEnd').value = new Date().toISOString().split('T')[0];
+        };
+    </script>
 </body>
 </html>
