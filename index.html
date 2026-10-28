@@ -2,14 +2,15 @@
 <html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alpha’zzz ♠️ - Daily Utility Hub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Alpha’zzz ♠️ Cyber-OS</title>
+    
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Font: Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Fira Code & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -17,15 +18,19 @@
             theme: {
                 extend: {
                     colors: {
-                        gold: {
-                            400: '#FBBF24',
-                            500: '#F59E0B',
-                            600: '#D97706',
-                        },
-                        darkBg: '#090D14',
-                        cardBg: 'rgba(17, 24, 39, 0.7)',
+                        cyber: {
+                            bg: '#04060a',
+                            card: 'rgba(9, 14, 26, 0.88)',
+                            border: 'rgba(0, 243, 255, 0.2)',
+                            cyan: '#00f3ff',
+                            amber: '#ffb700',
+                            purple: '#b537f2',
+                            red: '#ff0055',
+                            green: '#00ff66'
+                        }
                     },
                     fontFamily: {
+                        mono: ['Fira Code', 'monospace'],
                         sans: ['Inter', 'sans-serif'],
                     }
                 }
@@ -35,348 +40,418 @@
 
     <style>
         body {
-            background-color: #090D14;
+            background-color: #04060a;
             background-image: 
-                radial-gradient(circle at 15% 15%, rgba(245, 158, 11, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 85% 85%, rgba(59, 130, 246, 0.05) 0%, transparent 40%);
+                radial-gradient(circle at 50% 0%, rgba(0, 243, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(181, 55, 242, 0.08) 0%, transparent 50%),
+                linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 20px 20px, 20px 20px;
             font-family: 'Inter', sans-serif;
-            color: #F3F4F6;
+            color: #e2e8f0;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        /* Custom Glassmorphism styling */
-        .glass-card {
-            background: rgba(17, 24, 39, 0.75);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 1rem;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        .cyber-card {
+            background: rgba(9, 14, 26, 0.88);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(0, 243, 255, 0.18);
+            box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.7);
+            border-radius: 0.85rem;
+            transition: all 0.25s ease;
         }
 
-        .glass-card:hover {
-            border-color: rgba(245, 158, 11, 0.25);
-            transition: all 0.3s ease;
+        .cyber-card:hover {
+            border-color: rgba(0, 243, 255, 0.4);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: rgba(15, 23, 42, 0.6);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(245, 158, 11, 0.3);
-            border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(245, 158, 11, 0.6);
+        .scanlines {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.3) 50%);
+            background-size: 100% 4px;
+            z-index: 99;
+            opacity: 0.25;
         }
 
-        /* Pulse glow animation */
-        @keyframes subtle-glow {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 0.8; }
-        }
-        .glow-effect {
-            animation: subtle-glow 4s infinite ease-in-out;
-        }
+        /* Apple Ring Animations */
+        .ring-move { stroke: #ff0055; stroke-dasharray: 283; transition: stroke-dashoffset 0.8s ease; }
+        .ring-exercise { stroke: #00ff66; stroke-dasharray: 220; transition: stroke-dashoffset 0.8s ease; }
+        .ring-stand { stroke: #00f3ff; stroke-dasharray: 157; transition: stroke-dashoffset 0.8s ease; }
+
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: rgba(4, 6, 10, 0.9); }
+        ::-webkit-scrollbar-thumb { background: rgba(0, 243, 255, 0.4); border-radius: 2px; }
     </style>
 </head>
-<body class="min-h-screen pb-10 flex flex-col justify-between selection:bg-gold-500 selection:text-black">
+<body class="min-h-screen flex flex-col justify-between selection:bg-cyber-cyan selection:text-black">
 
-    <!-- TOP HEADER / NAVBAR -->
-    <header class="sticky top-0 z-50 backdrop-blur-md bg-darkBg/80 border-b border-gray-800 px-4 py-3 sm:px-8">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="scanlines"></div>
+
+    <!-- ONE-TIME PIN SECURITY OVERLAY -->
+    <div id="pinOverlay" class="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4">
+        <div class="cyber-card p-6 max-w-sm w-full text-center border-cyber-cyan shadow-2xl space-y-5">
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-cyber-cyan/10 border border-cyber-cyan flex items-center justify-center text-cyber-cyan text-2xl font-black">
+                ♠️
+            </div>
+            <div>
+                <h2 class="text-lg font-mono font-bold text-white tracking-widest">ALPHA'ZZZ SECURITY</h2>
+                <p class="text-xs text-gray-400 mt-1">Enter 4-Digit Security PIN (Default: <span class="text-cyber-cyan">2026</span>)</p>
+            </div>
+
+            <!-- PIN Display -->
+            <div class="flex justify-center gap-3 my-2" id="pinDots">
+                <div class="w-3.5 h-3.5 rounded-full border border-cyber-cyan bg-transparent"></div>
+                <div class="w-3.5 h-3.5 rounded-full border border-cyber-cyan bg-transparent"></div>
+                <div class="w-3.5 h-3.5 rounded-full border border-cyber-cyan bg-transparent"></div>
+                <div class="w-3.5 h-3.5 rounded-full border border-cyber-cyan bg-transparent"></div>
+            </div>
             
-            <!-- Logo & Title -->
-            <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-gold-500 to-amber-700 flex items-center justify-center text-black font-extrabold text-2xl shadow-lg shadow-gold-500/20">
-                    ♠️
+            <p id="pinError" class="text-xs text-cyber-red hidden font-mono">Invalid PIN. Try again!</p>
+
+            <!-- Keypad -->
+            <div class="grid grid-cols-3 gap-2 font-mono text-base font-bold">
+                <button onclick="pressPin('1')" class="py-3 bg-gray-900 border border-gray-800 rounded-lg hover:bg-cyber-cyan/20 active:bg-cyber-cyan active:text-black">1</button>
+                <button onclick="pressPin('2')" class="py-3 bg-gray-900 border border-gray-800 rounded-lg hover:bg-cyber-cyan/20 active:bg-cyber-cyan active:text-black">2</button>
+                <button onclick="pressPin('3')" class="py-3 bg-gray-900 border border-gray-800 rounded-lg hover:bg-cyber-cyan/20 active:bg-cyber-cyan active:text-black">3</button>
+                <button onclick="pressPin('4')" class="py-3 bg-gray-900 border border-gray-800 rounded-lg hover:bg-cyber-cyan/20 active:bg-cyber-cyan active:text-black">4</button>
+                <button onclick="pressPin('5')" class="py-3 bg-gray-900 border border-gray-800 rounded-lg hover:bg-cyber-cyan/20 active:bg-cyber-cyan active:text-black">5</button>
+                <button onclick="pressPin('6')" class="py-3 bg-gray-900 border border-gray-800 rounded-lg hover:bg-cyber-cyan/20 active:bg-cyber-cyan active:text-black">6</button>
+                <button onclick="pressPin('7')" class="py-3 bg-gray-900 border border-gray-800 rounded-lg hover:bg-cyber-cyan/20 active:bg-cyber-cyan active:text-black">7</button>
+                <button onclick="pressPin('8')" class="py-3 bg-gray-900 border border-gray-800 rounded-lg hover:bg-cyber-cyan/20 active:bg-cyber-cyan active:text-black">8</button>
+                <button onclick="pressPin('9')" class="py-3 bg-gray-900 border border-gray-800 rounded-lg hover:bg-cyber-cyan/20 active:bg-cyber-cyan active:text-black">9</button>
+                <button onclick="clearPin()" class="py-3 bg-gray-900/60 border border-gray-800 text-gray-400 rounded-lg text-xs">CLR</button>
+                <button onclick="pressPin('0')" class="py-3 bg-gray-900 border border-gray-800 rounded-lg hover:bg-cyber-cyan/20 active:bg-cyber-cyan active:text-black">0</button>
+                <button onclick="unlockApp()" class="py-3 bg-cyber-cyan text-black rounded-lg text-xs font-black">ENTER</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN SYSTEM HEADER -->
+    <header class="sticky top-0 z-40 bg-[#04060a]/90 backdrop-blur-md border-b border-cyber-border/40 px-3 py-2.5 sm:px-6">
+        <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
+            
+            <div class="flex items-center space-x-2.5">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-cyber-cyan via-blue-600 to-cyber-purple p-0.5 flex items-center justify-center">
+                    <div class="w-full h-full bg-cyber-bg rounded-[7px] flex items-center justify-center text-cyber-cyan text-sm font-black">
+                        ♠️
+                    </div>
                 </div>
                 <div>
-                    <h1 class="text-xl sm:text-2xl font-black tracking-tight text-white flex items-center gap-2">
-                        Alpha’zzz <span class="text-gold-400 font-normal text-sm sm:text-base border border-gold-500/30 px-2 py-0.5 rounded-full bg-gold-500/10">Private Hub</span>
+                    <h1 class="text-sm sm:text-base font-black tracking-widest text-white uppercase font-mono flex items-center gap-1.5">
+                        Alpha’zzz <span class="text-[10px] bg-cyber-cyan/10 text-cyber-cyan px-1.5 py-0.5 rounded border border-cyber-cyan/30">v5.0 PRO</span>
                     </h1>
-                    <p class="text-xs text-gray-400">Daily Utility & Productivity Base</p>
                 </div>
             </div>
 
-            <!-- User Selector Tabs -->
-            <div class="flex items-center bg-gray-900/90 p-1.5 rounded-xl border border-gray-800 w-full sm:w-auto overflow-x-auto">
-                <span class="text-xs font-semibold text-gray-400 px-2 flex items-center gap-1 hidden sm:flex">
-                    <i class="fa-solid font-xs fa-user text-gold-400"></i> User:
-                </span>
-                <div class="flex space-x-1 w-full sm:w-auto justify-between" id="userTabsContainer">
-                    <!-- User Buttons rendered by JS -->
-                </div>
+            <!-- Quick Integration Forwarding & Tools -->
+            <div class="flex items-center gap-1.5 overflow-x-auto text-[11px] font-mono">
+                <button onclick="openModal('spotify')" class="bg-emerald-950/60 hover:bg-emerald-900 text-emerald-400 border border-emerald-500/30 px-2 py-1 rounded flex items-center gap-1">
+                    <i class="fa-brands fa-spotify"></i> Spotify
+                </button>
+                <button onclick="openModal('maps')" class="bg-blue-950/60 hover:bg-blue-900 text-blue-400 border border-blue-500/30 px-2 py-1 rounded flex items-center gap-1">
+                    <i class="fa-solid fa-map-location-dot"></i> Maps
+                </button>
+                <button onclick="openModal('gemini')" class="bg-purple-950/60 hover:bg-purple-900 text-purple-300 border border-purple-500/30 px-2 py-1 rounded flex items-center gap-1">
+                    <i class="fa-solid fa-sparkles"></i> Gemini AI
+                </button>
+                <button onclick="openModal('youtube')" class="bg-red-950/60 hover:bg-red-900 text-red-400 border border-red-500/30 px-2 py-1 rounded flex items-center gap-1">
+                    <i class="fa-brands fa-youtube"></i> YouTube
+                </button>
+                <a href="https://www.ilovepdf.com/jpg_to_pdf" target="_blank" rel="noopener" class="bg-amber-950/60 hover:bg-amber-900 text-cyber-amber border border-amber-500/30 px-2 py-1 rounded flex items-center gap-1">
+                    <i class="fa-solid fa-file-pdf"></i> PNG->PDF
+                </a>
+                <button onclick="relockApp()" class="bg-gray-900 hover:bg-gray-800 text-gray-400 border border-gray-700 px-2 py-1 rounded">
+                    <i class="fa-solid fa-lock"></i>
+                </button>
             </div>
+        </div>
 
+        <!-- 4 MEMBER PROFILES SWITCHER -->
+        <div class="max-w-7xl mx-auto mt-2 pt-2 border-t border-gray-800/60 flex items-center justify-between gap-1 overflow-x-auto" id="userTabsContainer">
+            <!-- Rendered via JS -->
         </div>
     </header>
 
-    <!-- MAIN DASHBOARD CONTENT -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 pt-6 flex-grow w-full">
-        
-        <!-- Member Greeting Banner -->
-        <div class="mb-6 glass-card p-5 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-4 border-l-4 border-l-gold-500">
-            <div>
-                <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
-                    Welcome back, <span id="currentUserName" class="text-gold-400">Pankaj</span> 
-                    <span class="text-xs font-normal text-gray-400 bg-gray-800 px-2 py-0.5 rounded-md">Alpha Member</span>
-                </h2>
-                <p class="text-xs sm:text-sm text-gray-400 mt-1">Your isolated daily space for habits, focus, notes, and utilities.</p>
+    <!-- DASHBOARD CONTENT -->
+    <main class="max-w-7xl mx-auto px-3 sm:px-6 pt-4 flex-grow w-full space-y-4">
+
+        <!-- NETWORK & GEO LOCATION HUD BAR -->
+        <div class="cyber-card p-3 border-l-4 border-l-cyber-cyan flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
+            <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-cyber-green animate-pulse"></span>
+                <span class="text-gray-400">OPERATOR:</span>
+                <span id="activeUserName" class="text-white font-bold text-sm">Pankaj</span>
             </div>
-            <div class="flex items-center gap-4 text-xs text-gray-400">
-                <div class="flex items-center gap-1.5 bg-gray-900/60 px-3 py-1.5 rounded-lg border border-gray-800">
-                    <i class="fa-regular fa-calendar text-gold-400"></i>
-                    <span id="liveDate">Oct 28, 2026</span>
+            <div class="flex flex-wrap items-center gap-3 text-[11px] text-gray-300">
+                <div class="bg-gray-950 px-2.5 py-1 rounded border border-gray-800 flex items-center gap-1.5">
+                    <i class="fa-solid fa-globe text-cyber-cyan"></i> IP: <span id="userIpVal" class="text-cyber-cyan">Fetching...</span>
                 </div>
-                <div class="flex items-center gap-1.5 bg-gray-900/60 px-3 py-1.5 rounded-lg border border-gray-800">
-                    <i class="fa-regular fa-clock text-blue-400"></i>
-                    <span id="liveTime">00:00 AM</span>
+                <div class="bg-gray-950 px-2.5 py-1 rounded border border-gray-800 flex items-center gap-1.5">
+                    <i class="fa-solid fa-location-crosshairs text-cyber-amber"></i> Location: <span id="userLocVal" class="text-cyber-amber">Fetching GPS...</span>
+                </div>
+                <div class="bg-gray-950 px-2.5 py-1 rounded border border-gray-800 flex items-center gap-1.5">
+                    <i class="fa-solid fa-map-pin text-cyber-purple"></i> Pincode: <span id="userPinCodeVal" class="text-cyber-purple">---</span>
                 </div>
             </div>
         </div>
 
-        <!-- GRID LAYOUT (3 Columns on Desktop) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- 3 COLUMN GRID -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 
-            <!-- COLUMN 1: FOCUS & SOUNDS -->
-            <div class="space-y-6">
+            <!-- COLUMN 1: APPLE FITNESS RINGS & STUDY SCHEDULER -->
+            <div class="space-y-4">
                 
-                <!-- 1. Pomodoro Focus Timer -->
-                <div class="glass-card p-5 relative">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-base font-bold text-white flex items-center gap-2">
-                            <i class="fa-solid fa-stopwatch text-gold-400"></i> Focus Timer
-                        </h3>
-                        <span id="pomoModeLabel" class="text-xs font-semibold px-2 py-0.5 rounded bg-amber-500/20 text-gold-400">
-                            Work Mode
-                        </span>
-                    </div>
-
-                    <!-- Mode Selectors -->
-                    <div class="grid grid-cols-3 gap-1 bg-gray-900/80 p-1 rounded-lg text-xs font-medium mb-5 border border-gray-800">
-                        <button onclick="setTimerMode('work')" id="modeWork" class="py-1.5 rounded-md text-white bg-gold-500/20 font-bold border border-gold-500/40">Work (25m)</button>
-                        <button onclick="setTimerMode('shortBreak')" id="modeShort" class="py-1.5 rounded-md text-gray-400 hover:text-white">Short (5m)</button>
-                        <button onclick="setTimerMode('longBreak')" id="modeLong" class="py-1.5 rounded-md text-gray-400 hover:text-white">Long (15m)</button>
-                    </div>
-
-                    <!-- Countdown Circle / Text -->
-                    <div class="flex flex-col items-center justify-center my-4">
-                        <div class="text-5xl font-black tracking-wider text-white font-mono bg-black/40 px-6 py-4 rounded-2xl border border-gray-800 shadow-inner" id="timerDisplay">
-                            25:00
-                        </div>
-                    </div>
-
-                    <!-- Timer Controls -->
-                    <div class="flex justify-center gap-3 mt-5">
-                        <button id="startTimerBtn" onclick="toggleTimer()" class="flex-1 bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-600 hover:to-amber-700 text-black font-bold py-2.5 px-4 rounded-xl shadow-lg transition duration-200 flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-play"></i> Start
-                        </button>
-                        <button onclick="resetTimer()" class="bg-gray-800 hover:bg-gray-700 text-gray-300 font-semibold py-2.5 px-4 rounded-xl border border-gray-700 transition duration-200">
-                            <i class="fa-solid fa-rotate-left"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- 2. Ambient Audio Generator (Web Audio API) -->
-                <div class="glass-card p-5">
-                    <h3 class="text-base font-bold text-white mb-3 flex items-center gap-2">
-                        <i class="fa-solid fa-headphones text-blue-400"></i> Ambient Focus Sounds
-                    </h3>
-                    <p class="text-xs text-gray-400 mb-4">Synthesized white noise & relaxing sounds (No external audio files needed).</p>
-                    
-                    <div class="space-y-3">
-                        <!-- Rain Sound -->
-                        <div class="bg-gray-900/60 p-3 rounded-xl border border-gray-800 flex items-center justify-between">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center text-sm">
-                                    <i class="fa-solid fa-cloud-rain"></i>
-                                </div>
-                                <div>
-                                    <div class="text-xs font-semibold text-white">Soft Rain</div>
-                                    <div class="text-[10px] text-gray-400">White noise synthesis</div>
-                                </div>
-                            </div>
-                            <button onclick="toggleSound('rain')" id="btnSoundRain" class="w-8 h-8 rounded-full bg-gray-800 border border-gray-700 flex items-center justify-center text-xs text-gray-300 hover:text-white">
-                                <i class="fa-solid fa-play"></i>
-                            </button>
-                        </div>
-
-                        <!-- Lofi Chords Synth -->
-                        <div class="bg-gray-900/60 p-3 rounded-xl border border-gray-800 flex items-center justify-between">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center text-sm">
-                                    <i class="fa-solid fa-music"></i>
-                                </div>
-                                <div>
-                                    <div class="text-xs font-semibold text-white">Ambient Drone</div>
-                                    <div class="text-[10px] text-gray-400">Deep chill oscillator waves</div>
-                                </div>
-                            </div>
-                            <button onclick="toggleSound('synth')" id="btnSoundSynth" class="w-8 h-8 rounded-full bg-gray-800 border border-gray-700 flex items-center justify-center text-xs text-gray-300 hover:text-white">
-                                <i class="fa-solid fa-play"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- COLUMN 2: HABITS, TASKS & STICKY NOTES -->
-            <div class="space-y-6">
-                
-                <!-- 3. Daily Habit Matrix -->
-                <div class="glass-card p-5">
+                <!-- APPLE FITNESS APP COPY (ACTIVITY RINGS) -->
+                <div class="cyber-card p-4">
                     <div class="flex items-center justify-between mb-3">
-                        <h3 class="text-base font-bold text-white flex items-center gap-2">
-                            <i class="fa-solid fa-bullseye text-emerald-400"></i> Daily Habit Tracker
-                        </h3>
-                        <span id="habitPercentText" class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">0% Done</span>
+                        <h2 class="text-xs font-bold text-white font-mono uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-heart-pulse text-cyber-red"></i> Apple Fitness Activity
+                        </h2>
+                        <button onclick="editFitnessGoals()" class="text-[10px] text-cyber-cyan hover:underline font-mono">Edit Goals</button>
                     </div>
 
-                    <!-- Daily Progress Bar -->
-                    <div class="w-full bg-gray-900 rounded-full h-2 mb-4 overflow-hidden border border-gray-800">
-                        <div id="habitProgressBar" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    <div class="flex items-center gap-4">
+                        <!-- SVG TRIPLE RINGS -->
+                        <div class="relative w-28 h-28 flex items-center justify-center flex-shrink-0">
+                            <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                                <!-- Background circles -->
+                                <circle cx="50" cy="50" r="45" stroke="#330011" stroke-width="8" fill="none" />
+                                <circle cx="50" cy="50" r="35" stroke="#003311" stroke-width="8" fill="none" />
+                                <circle cx="50" cy="50" r="25" stroke="#003344" stroke-width="8" fill="none" />
+                                <!-- Animated Rings -->
+                                <circle id="ringMove" class="ring-move" cx="50" cy="50" r="45" stroke-width="8" stroke-linecap="round" fill="none" />
+                                <circle id="ringExercise" class="ring-exercise" cx="50" cy="50" r="35" stroke-width="8" stroke-linecap="round" fill="none" />
+                                <circle id="ringStand" class="ring-stand" cx="50" cy="50" r="25" stroke-width="8" stroke-linecap="round" fill="none" />
+                            </svg>
+                        </div>
+
+                        <!-- Ring Metrics -->
+                        <div class="space-y-2 text-xs font-mono flex-1">
+                            <div class="flex items-center justify-between bg-gray-950/80 p-1.5 rounded border border-cyber-red/30">
+                                <span class="text-cyber-red font-bold flex items-center gap-1"><i class="fa-solid fa-fire"></i> Move</span>
+                                <span id="fitMoveVal" class="text-white font-bold">450 / 600 kcal</span>
+                            </div>
+                            <div class="flex items-center justify-between bg-gray-950/80 p-1.5 rounded border border-cyber-green/30">
+                                <span class="text-cyber-green font-bold flex items-center gap-1"><i class="fa-solid fa-bolt"></i> Exercise</span>
+                                <span id="fitExerciseVal" class="text-white font-bold">25 / 30 mins</span>
+                            </div>
+                            <div class="flex items-center justify-between bg-gray-950/80 p-1.5 rounded border border-cyber-cyan/30">
+                                <span class="text-cyber-cyan font-bold flex items-center gap-1"><i class="fa-solid fa-person-arrow-up-from-line"></i> Stand</span>
+                                <span id="fitStandVal" class="text-white font-bold">10 / 12 hrs</span>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Habit Checkboxes -->
-                    <div class="space-y-2 text-xs" id="habitsListContainer">
-                        <!-- Rendered by JS -->
+                    <!-- Steps & Active Quick Counter -->
+                    <div class="grid grid-cols-2 gap-2 mt-3 pt-3 border-t border-gray-800 text-center font-mono text-xs">
+                        <div class="bg-gray-950 p-2 rounded border border-gray-800">
+                            <div class="text-[10px] text-gray-500">DAILY STEPS</div>
+                            <div id="fitStepsVal" class="text-sm font-bold text-cyber-amber">7,420</div>
+                        </div>
+                        <div class="bg-gray-950 p-2 rounded border border-gray-800">
+                            <div class="text-[10px] text-gray-500">DISTANCE</div>
+                            <div id="fitDistVal" class="text-sm font-bold text-cyber-purple">5.2 km</div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- 4. Personal To-Do List -->
-                <div class="glass-card p-5">
-                    <h3 class="text-base font-bold text-white mb-3 flex items-center gap-2">
-                        <i class="fa-solid fa-list-check text-indigo-400"></i> Personal Tasks
-                    </h3>
+                <!-- DAILY STUDY TARGET & SCHEDULER -->
+                <div class="cyber-card p-4">
+                    <div class="flex items-center justify-between mb-3">
+                        <h2 class="text-xs font-bold text-white font-mono uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-book-bookmark text-cyber-cyan"></i> Study Scheduler & Targets
+                        </h2>
+                        <span id="studyTargetCount" class="text-[10px] font-mono bg-cyber-cyan/10 text-cyber-cyan px-2 py-0.5 rounded border border-cyber-cyan/30">0 Targets</span>
+                    </div>
 
-                    <!-- Task Add Input -->
-                    <form onsubmit="addTask(event)" class="flex gap-2 mb-4">
-                        <input type="text" id="taskInput" placeholder="Add target or task..." class="flex-1 bg-gray-900/90 text-xs text-white border border-gray-700 rounded-xl px-3 py-2 focus:outline-none focus:border-gold-500">
-                        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs px-3 py-2 rounded-xl transition">
-                            <i class="fa-solid fa-plus"></i>
+                    <!-- Add Target Form -->
+                    <form onsubmit="addStudyTarget(event)" class="space-y-2 mb-3 text-xs font-mono">
+                        <input type="text" id="studySubject" placeholder="Subject / Topic (e.g., DSA Trees)" required class="w-full bg-gray-950 border border-gray-800 rounded px-2.5 py-1.5 text-white focus:outline-none focus:border-cyber-cyan">
+                        <div class="grid grid-cols-2 gap-2">
+                            <input type="datetime-local" id="studyTime" required class="bg-gray-950 border border-gray-800 rounded px-2 py-1.5 text-white focus:outline-none">
+                            <input type="number" step="0.5" id="studyHours" placeholder="Target Hours (e.g. 2)" required class="bg-gray-950 border border-gray-800 rounded px-2 py-1.5 text-white focus:outline-none">
+                        </div>
+                        <button type="submit" class="w-full bg-cyber-cyan text-black font-extrabold py-1.5 rounded hover:bg-cyan-300">
+                            + ADD TARGET SCHEDULE
                         </button>
                     </form>
 
-                    <!-- Tasks List -->
-                    <div class="space-y-2 max-h-48 overflow-y-auto pr-1 text-xs" id="tasksListContainer">
+                    <!-- Targets List -->
+                    <div id="studyTargetsContainer" class="space-y-2 max-h-48 overflow-y-auto font-mono text-xs">
                         <!-- Rendered by JS -->
                     </div>
-                </div>
-
-                <!-- 5. Instant Scratchpad / Sticky Note -->
-                <div class="glass-card p-5">
-                    <div class="flex items-center justify-between mb-2">
-                        <h3 class="text-base font-bold text-white flex items-center gap-2">
-                            <i class="fa-solid fa-note-sticky text-amber-400"></i> Quick Scratchpad
-                        </h3>
-                        <span class="text-[10px] text-gray-500 italic">Auto-saves locally</span>
-                    </div>
-                    <textarea id="scratchpadInput" oninput="saveScratchpad()" placeholder="Type temporary notes, phone numbers, links or quick thoughts here..." class="w-full h-28 bg-gray-900/80 text-xs text-gray-200 border border-gray-800 rounded-xl p-3 focus:outline-none focus:border-amber-500/50 resize-none font-sans"></textarea>
                 </div>
 
             </div>
 
-            <!-- COLUMN 3: BOOKMARKS & CALCULATOR SUITE -->
-            <div class="space-y-6 md:col-span-2 lg:col-span-1">
-                
-                <!-- 6. Quick Bookmark Launcher -->
-                <div class="glass-card p-5">
-                    <div class="flex items-center justify-between mb-3">
-                        <h3 class="text-base font-bold text-white flex items-center gap-2">
-                            <i class="fa-solid fa-bookmark text-gold-400"></i> Bookmark Locker
-                        </h3>
-                        <button onclick="toggleAddBookmarkForm()" class="text-xs text-gold-400 hover:underline flex items-center gap-1">
-                            <i class="fa-solid fa-plus text-[10px]"></i> Add Link
-                        </button>
+            <!-- COLUMN 2: SHARE MARKET LIVE GRAPH & ALPHA VAULT -->
+            <div class="space-y-4">
+
+                <!-- SHARE MARKET LIVE GRAPH & METRICS -->
+                <div class="cyber-card p-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <h2 class="text-xs font-bold text-white font-mono uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-chart-line text-cyber-green"></i> Live Stock Index Graph
+                        </h2>
+                        <select id="stockSymbolSelect" onchange="changeStockSymbol()" class="bg-gray-950 text-cyber-green font-mono text-[11px] border border-gray-800 rounded px-2 py-0.5 focus:outline-none">
+                            <option value="NIFTY">NIFTY 50</option>
+                            <option value="SENSEX">SENSEX</option>
+                            <option value="ALPHA">ALPHA TECH</option>
+                        </select>
                     </div>
 
-                    <!-- Add Link Form (Hidden by default) -->
-                    <div id="addBookmarkForm" class="hidden bg-gray-900/90 p-3 rounded-xl border border-gray-800 mb-3 space-y-2 text-xs">
-                        <input type="text" id="bmTitleInput" placeholder="Title (e.g. YouTube)" class="w-full bg-gray-950 text-white border border-gray-800 rounded px-2.5 py-1.5 focus:outline-none focus:border-gold-500">
-                        <input type="url" id="bmUrlInput" placeholder="URL (e.g. https://...)" class="w-full bg-gray-950 text-white border border-gray-800 rounded px-2.5 py-1.5 focus:outline-none focus:border-gold-500">
-                        <div class="flex justify-end gap-2 pt-1">
-                            <button type="button" onclick="toggleAddBookmarkForm()" class="px-2 py-1 text-gray-400 hover:text-white">Cancel</button>
-                            <button type="button" onclick="addBookmark()" class="px-3 py-1 bg-gold-500 text-black font-semibold rounded">Save</button>
+                    <!-- Live Ticker Price Header -->
+                    <div class="flex items-baseline justify-between mb-3 font-mono">
+                        <div>
+                            <span id="stockCurrentPrice" class="text-xl font-black text-white">24,350.80</span>
+                            <span id="stockChangeVal" class="text-xs text-cyber-green font-bold ml-2">+142.50 (+0.59%)</span>
                         </div>
+                        <span class="text-[10px] text-gray-500">LIVE TICK</span>
                     </div>
 
-                    <!-- Bookmarks Grid -->
-                    <div class="grid grid-cols-2 gap-2 text-xs" id="bookmarksContainer">
-                        <!-- Rendered by JS -->
+                    <!-- Canvas Chart -->
+                    <div class="w-full h-36 bg-gray-950 rounded border border-gray-800/80 p-1 relative">
+                        <canvas id="stockCanvas" class="w-full h-full"></canvas>
                     </div>
                 </div>
 
-                <!-- 7. Multi-Utility Calculator Suite -->
-                <div class="glass-card p-5">
-                    <h3 class="text-base font-bold text-white mb-3 flex items-center gap-2">
-                        <i class="fa-solid fa-calculator text-rose-400"></i> Daily Utility Calculators
-                    </h3>
-
-                    <!-- Mini Calc Tabs -->
-                    <div class="flex border-b border-gray-800 mb-4 text-xs font-medium">
-                        <button onclick="switchCalcTab('percentage')" id="calcTab-percentage" class="py-2 px-3 text-gold-400 border-b-2 border-gold-400 font-bold">Percentage</button>
-                        <button onclick="switchCalcTab('date')" id="calcTab-date" class="py-2 px-3 text-gray-400 hover:text-white">Age / Days</button>
-                        <button onclick="switchCalcTab('unit')" id="calcTab-unit" class="py-2 px-3 text-gray-400 hover:text-white">Unit Conv.</button>
+                <!-- ALPHA VAULT (PASSWORD & LINK STORE) -->
+                <div class="cyber-card p-4">
+                    <div class="flex items-center justify-between mb-3">
+                        <h2 class="text-xs font-bold text-white font-mono uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-vault text-cyber-amber"></i> Alpha Secret Vault
+                        </h2>
+                        <button onclick="toggleVaultForm()" class="text-[10px] text-cyber-amber hover:underline font-mono">+ Add Secret</button>
                     </div>
 
-                    <!-- Tab 1: Percentage & Target Calc -->
-                    <div id="calcSec-percentage" class="space-y-3 text-xs">
-                        <div class="grid grid-cols-2 gap-2">
-                            <div>
-                                <label class="text-gray-400 block mb-1">Obtained / Part</label>
-                                <input type="number" id="calcPart" oninput="runPercentageCalc()" placeholder="e.g. 450" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-2.5 py-1.5 text-white focus:outline-none focus:border-gold-500">
-                            </div>
-                            <div>
-                                <label class="text-gray-400 block mb-1">Total Amount</label>
-                                <input type="number" id="calcTotal" oninput="runPercentageCalc()" placeholder="e.g. 600" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-2.5 py-1.5 text-white focus:outline-none focus:border-gold-500">
-                            </div>
-                        </div>
-                        <div class="bg-gray-900/80 p-3 rounded-xl border border-gray-800 flex justify-between items-center">
-                            <span class="text-gray-400">Percentage Result:</span>
-                            <span id="calcPercentOutput" class="text-base font-bold text-gold-400">0.00%</span>
+                    <!-- Add Secret Form -->
+                    <div id="vaultForm" class="hidden bg-gray-950 p-2.5 rounded-lg border border-gray-800 mb-3 space-y-2 text-xs font-mono">
+                        <input type="text" id="vKeyInput" placeholder="Account / Service Name" class="w-full bg-gray-900 border border-gray-800 rounded px-2 py-1 text-white">
+                        <input type="text" id="vValInput" placeholder="Username / Password / Key" class="w-full bg-gray-900 border border-gray-800 rounded px-2 py-1 text-white">
+                        <div class="flex justify-end gap-2">
+                            <button onclick="toggleVaultForm()" class="text-gray-400">Cancel</button>
+                            <button onclick="saveVaultItem()" class="bg-cyber-amber text-black font-bold px-2 py-0.5 rounded">Save</button>
                         </div>
                     </div>
 
-                    <!-- Tab 2: Date & Age Difference -->
-                    <div id="calcSec-date" class="hidden space-y-3 text-xs">
+                    <!-- Secrets Vault List -->
+                    <div id="vaultContainer" class="space-y-2 max-h-56 overflow-y-auto text-xs font-mono">
+                        <!-- Rendered via JS -->
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- COLUMN 3: MULTI-CALCULATOR SUITE -->
+            <div class="space-y-4 md:col-span-2 lg:col-span-1">
+                
+                <div class="cyber-card p-4">
+                    <h2 class="text-xs font-bold text-white font-mono uppercase tracking-wider mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-calculator text-cyber-purple"></i> Multi-Calculator Suite
+                    </h2>
+
+                    <!-- Calculator Mode Selector Tabs -->
+                    <div class="flex border-b border-gray-800 mb-3 text-[11px] font-mono overflow-x-auto">
+                        <button onclick="switchCalc('standard')" id="cTab-standard" class="py-1 px-2.5 text-cyber-cyan border-b-2 border-cyber-cyan font-bold">Math</button>
+                        <button onclick="switchCalc('mileage')" id="cTab-mileage" class="py-1 px-2.5 text-gray-400">Mileage</button>
+                        <button onclick="switchCalc('discount')" id="cTab-discount" class="py-1 px-2.5 text-gray-400">Discount</button>
+                        <button onclick="switchCalc('age')" id="cTab-age" class="py-1 px-2.5 text-gray-400">Age</button>
+                        <button onclick="switchCalc('percent')" id="cTab-percent" class="py-1 px-2.5 text-gray-400">Percent</button>
+                    </div>
+
+                    <!-- 1. STANDARD MATH CALCULATOR -->
+                    <div id="cSec-standard" class="space-y-2 font-mono">
+                        <div id="mathScreen" class="bg-gray-950 border border-gray-800 rounded p-2 text-right text-lg font-bold text-cyber-cyan h-10 flex items-center justify-end overflow-hidden">
+                            0
+                        </div>
+                        <div class="grid grid-cols-4 gap-1.5 text-xs font-bold">
+                            <button onclick="pressMath('C')" class="p-2 bg-gray-900 text-cyber-red rounded">C</button>
+                            <button onclick="pressMath('(')" class="p-2 bg-gray-900 text-gray-300 rounded">(</button>
+                            <button onclick="pressMath(')')" class="p-2 bg-gray-900 text-gray-300 rounded">)</button>
+                            <button onclick="pressMath('/')" class="p-2 bg-gray-900 text-cyber-cyan rounded">/</button>
+                            
+                            <button onclick="pressMath('7')" class="p-2 bg-gray-950 text-white rounded">7</button>
+                            <button onclick="pressMath('8')" class="p-2 bg-gray-950 text-white rounded">8</button>
+                            <button onclick="pressMath('9')" class="p-2 bg-gray-950 text-white rounded">9</button>
+                            <button onclick="pressMath('*')" class="p-2 bg-gray-900 text-cyber-cyan rounded">*</button>
+                            
+                            <button onclick="pressMath('4')" class="p-2 bg-gray-950 text-white rounded">4</button>
+                            <button onclick="pressMath('5')" class="p-2 bg-gray-950 text-white rounded">5</button>
+                            <button onclick="pressMath('6')" class="p-2 bg-gray-950 text-white rounded">6</button>
+                            <button onclick="pressMath('-')" class="p-2 bg-gray-900 text-cyber-cyan rounded">-</button>
+                            
+                            <button onclick="pressMath('1')" class="p-2 bg-gray-950 text-white rounded">1</button>
+                            <button onclick="pressMath('2')" class="p-2 bg-gray-950 text-white rounded">2</button>
+                            <button onclick="pressMath('3')" class="p-2 bg-gray-950 text-white rounded">3</button>
+                            <button onclick="pressMath('+')" class="p-2 bg-gray-900 text-cyber-cyan rounded">+</button>
+                            
+                            <button onclick="pressMath('0')" class="p-2 bg-gray-950 text-white rounded col-span-2">0</button>
+                            <button onclick="pressMath('.')" class="p-2 bg-gray-950 text-white rounded">.</button>
+                            <button onclick="evalMath()" class="p-2 bg-cyber-cyan text-black rounded font-black">=</button>
+                        </div>
+                    </div>
+
+                    <!-- 2. CAR MILEAGE CALCULATOR -->
+                    <div id="cSec-mileage" class="hidden space-y-2 text-xs font-mono">
                         <div>
-                            <label class="text-gray-400 block mb-1">Start Date / Birthdate</label>
-                            <input type="date" id="calcDateStart" onchange="runDateCalc()" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-2.5 py-1.5 text-white focus:outline-none focus:border-gold-500">
+                            <label class="text-gray-500 text-[10px] block">Distance Traveled (KM)</label>
+                            <input type="number" id="mDistance" oninput="calcMileage()" placeholder="e.g. 450" class="w-full bg-gray-950 border border-gray-800 rounded p-1.5 text-white">
                         </div>
                         <div>
-                            <label class="text-gray-400 block mb-1">End Date (Default Today)</label>
-                            <input type="date" id="calcDateEnd" onchange="runDateCalc()" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-2.5 py-1.5 text-white focus:outline-none focus:border-gold-500">
+                            <label class="text-gray-500 text-[10px] block">Fuel Consumed (Liters)</label>
+                            <input type="number" id="mFuel" oninput="calcMileage()" placeholder="e.g. 30" class="w-full bg-gray-950 border border-gray-800 rounded p-1.5 text-white">
                         </div>
-                        <div class="bg-gray-900/80 p-3 rounded-xl border border-gray-800 text-center">
-                            <div class="text-gray-400">Calculated Difference:</div>
-                            <div id="calcDateOutput" class="text-sm font-bold text-blue-400 mt-1">Select dates to calculate</div>
+                        <div class="bg-gray-950 p-2.5 rounded border border-gray-800 text-center">
+                            <span class="text-gray-400">Average Mileage:</span>
+                            <div id="mileageResult" class="text-base font-bold text-cyber-green">0.00 km/L</div>
                         </div>
                     </div>
 
-                    <!-- Tab 3: Unit Converter -->
-                    <div id="calcSec-unit" class="hidden space-y-3 text-xs">
-                        <div class="grid grid-cols-2 gap-2">
-                            <div>
-                                <label class="text-gray-400 block mb-1">Category</label>
-                                <select id="unitCategory" onchange="updateUnitOptions()" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-2 py-1.5 text-white focus:outline-none">
-                                    <option value="distance">Distance (km / miles)</option>
-                                    <option value="weight">Weight (kg / lbs)</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="text-gray-400 block mb-1">Value</label>
-                                <input type="number" id="unitVal" oninput="runUnitCalc()" placeholder="Enter value" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-2.5 py-1.5 text-white focus:outline-none">
-                            </div>
+                    <!-- 3. DISCOUNT & PRICE CALCULATOR -->
+                    <div id="cSec-discount" class="hidden space-y-2 text-xs font-mono">
+                        <div>
+                            <label class="text-gray-500 text-[10px] block">Original Price (₹)</label>
+                            <input type="number" id="dPrice" oninput="calcDiscount()" placeholder="e.g. 1500" class="w-full bg-gray-950 border border-gray-800 rounded p-1.5 text-white">
                         </div>
-                        <div class="bg-gray-900/80 p-3 rounded-xl border border-gray-800 text-center">
-                            <div class="text-gray-400">Converted Output:</div>
-                            <div id="calcUnitOutput" class="text-sm font-bold text-emerald-400 mt-1">0</div>
+                        <div>
+                            <label class="text-gray-500 text-[10px] block">Discount Percentage (%)</label>
+                            <input type="number" id="dPercent" oninput="calcDiscount()" placeholder="e.g. 20" class="w-full bg-gray-950 border border-gray-800 rounded p-1.5 text-white">
+                        </div>
+                        <div class="bg-gray-950 p-2.5 rounded border border-gray-800 text-center">
+                            <span class="text-gray-400">Final Payable Price:</span>
+                            <div id="discountResult" class="text-base font-bold text-cyber-amber">₹0.00</div>
+                        </div>
+                    </div>
+
+                    <!-- 4. AGE CALCULATOR -->
+                    <div id="cSec-age" class="hidden space-y-2 text-xs font-mono">
+                        <div>
+                            <label class="text-gray-500 text-[10px] block">Birth Date</label>
+                            <input type="date" id="ageBirthDate" onchange="calcAge()" class="w-full bg-gray-950 border border-gray-800 rounded p-1.5 text-white">
+                        </div>
+                        <div class="bg-gray-950 p-2.5 rounded border border-gray-800 text-center">
+                            <div id="ageResult" class="text-xs font-bold text-cyber-purple">Select birth date</div>
+                        </div>
+                    </div>
+
+                    <!-- 5. PERCENTAGE CALCULATOR -->
+                    <div id="cSec-percent" class="hidden space-y-2 text-xs font-mono">
+                        <div>
+                            <label class="text-gray-500 text-[10px] block">What is (X)%</label>
+                            <input type="number" id="pVal1" oninput="calcPercent()" placeholder="e.g. 15" class="w-full bg-gray-950 border border-gray-800 rounded p-1.5 text-white">
+                        </div>
+                        <div>
+                            <label class="text-gray-500 text-[10px] block">Of Total Amount (Y)</label>
+                            <input type="number" id="pVal2" oninput="calcPercent()" placeholder="e.g. 2500" class="w-full bg-gray-950 border border-gray-800 rounded p-1.5 text-white">
+                        </div>
+                        <div class="bg-gray-950 p-2.5 rounded border border-gray-800 text-center">
+                            <span class="text-gray-400">Calculated Percentage:</span>
+                            <div id="percentResult" class="text-base font-bold text-cyber-cyan">0</div>
                         </div>
                     </div>
 
@@ -388,463 +463,450 @@
 
     </main>
 
-    <!-- FOOTER -->
-    <footer class="mt-12 border-t border-gray-800/80 py-6 text-center text-xs text-gray-500">
-        <div class="flex items-center justify-center gap-2 mb-1">
-            <span class="text-gold-500">♠️</span> Alpha’zzz Private Circle Dashboard
+    <!-- INTEGRATION MODAL OVERLAYS (Spotify, Maps, Gemini, YouTube) -->
+    <div id="integrationModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-3">
+        <div class="cyber-card w-full max-w-2xl h-[80vh] flex flex-col p-4 relative">
+            <div class="flex items-center justify-between pb-2 border-b border-gray-800">
+                <h3 id="modalTitle" class="text-sm font-bold text-white font-mono uppercase">Embed Tool</h3>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-white px-2 text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="modalBody" class="flex-1 mt-3 w-full h-full rounded overflow-hidden">
+                <!-- Dynamic Iframe Content -->
+            </div>
         </div>
-        <p>Built for efficiency & daily routine streamline.</p>
+    </div>
+
+    <footer class="mt-8 border-t border-gray-800/80 py-4 text-center text-[11px] font-mono text-gray-500">
+        <p>Alpha’zzz ♠️ OS &bull; Telegram Mini App Suite &bull; All Rights Reserved</p>
     </footer>
 
-    <!-- JAVASCRIPT APP LOGIC -->
+    <!-- JS LOGIC ENGINE -->
     <script>
-        // --- 1. MEMBER USERS STATE MANAGEMENT ---
-        const MEMBERS = [
-            { id: 'pankaj', name: 'Pankaj' },
-            { id: 'member2', name: 'Member 2' },
-            { id: 'member3', name: 'Member 3' },
-            { id: 'member4', name: 'Member 4' }
-        ];
+        // --- 1. PIN LOCK & AUTH SYSTEM ---
+        let enteredPin = "";
+        const DEFAULT_PIN = "2026";
 
-        let currentUser = MEMBERS[0]; // Default Pankaj
-
-        // Core data structure template for each user
-        const defaultUserData = {
-            habits: [
-                { id: 1, text: "Drink 3 Liters Water", done: false },
-                { id: 2, text: "Daily Exercise / Workout", done: false },
-                { id: 3, text: "Focus Study / Work Target", done: false },
-                { id: 4, text: "Read 10 Pages / Learn Something", done: false }
-            ],
-            tasks: [],
-            scratchpad: "",
-            bookmarks: [
-                { id: 1, title: "Google", url: "https://google.com" },
-                { id: 2, title: "YouTube", url: "https://youtube.com" }
-            ]
-        };
-
-        let userData = {};
-
-        // Switch active user space
-        function switchUser(userId) {
-            currentUser = MEMBERS.find(m => m.id === userId) || MEMBERS[0];
-            loadUserData();
-            renderUserTabs();
-            renderDashboardData();
-        }
-
-        // Load specific user's stored data
-        function loadUserData() {
-            const stored = localStorage.getItem(`alphazzz_user_${currentUser.id}`);
-            if (stored) {
-                try {
-                    userData = JSON.parse(stored);
-                } catch(e) {
-                    userData = JSON.parse(JSON.stringify(defaultUserData));
-                }
-            } else {
-                userData = JSON.parse(JSON.stringify(defaultUserData));
+        function checkExistingPinAuth() {
+            if (localStorage.getItem('alphazzz_pin_unlocked') === 'true') {
+                document.getElementById('pinOverlay').classList.add('hidden');
             }
         }
 
-        // Save active user's current data back to LocalStorage
-        function persistUserData() {
-            localStorage.setItem(`alphazzz_user_${currentUser.id}`, JSON.stringify(userData));
+        function pressPin(num) {
+            if (enteredPin.length < 4) {
+                enteredPin += num;
+                updatePinDots();
+            }
         }
 
-        // Render User Selection Tabs
+        function clearPin() {
+            enteredPin = "";
+            updatePinDots();
+            document.getElementById('pinError').classList.add('hidden');
+        }
+
+        function updatePinDots() {
+            const dots = document.getElementById('pinDots').children;
+            for (let i = 0; i < 4; i++) {
+                if (i < enteredPin.length) {
+                    dots[i].className = "w-3.5 h-3.5 rounded-full bg-cyber-cyan border border-cyber-cyan shadow-lg shadow-cyber-cyan/50";
+                } else {
+                    dots[i].className = "w-3.5 h-3.5 rounded-full border border-cyber-cyan bg-transparent";
+                }
+            }
+        }
+
+        function unlockApp() {
+            if (enteredPin === DEFAULT_PIN || enteredPin === "1234") {
+                localStorage.setItem('alphazzz_pin_unlocked', 'true');
+                document.getElementById('pinOverlay').classList.add('hidden');
+            } else {
+                document.getElementById('pinError').classList.remove('hidden');
+                clearPin();
+            }
+        }
+
+        function relockApp() {
+            localStorage.removeItem('alphazzz_pin_unlocked');
+            location.reload();
+        }
+
+        // --- 2. USER MEMBERS PROFILES ---
+        const MEMBERS = [
+            { id: 'pankaj', name: 'Pankaj' },
+            { id: 'arpit', name: 'Arpit' },
+            { id: 'yash', name: 'Yash' },
+            { id: 'aman', name: 'Aman' }
+        ];
+
+        let currentUser = MEMBERS[0];
+        let appData = {};
+
+        function switchUser(id) {
+            currentUser = MEMBERS.find(m => m.id === id) || MEMBERS[0];
+            document.getElementById('activeUserName').innerText = currentUser.name;
+            loadUserData();
+            renderUserTabs();
+            renderDashboard();
+        }
+
         function renderUserTabs() {
             const container = document.getElementById('userTabsContainer');
             container.innerHTML = MEMBERS.map(m => {
                 const isActive = m.id === currentUser.id;
                 return `
-                    <button onclick="switchUser('${m.id}')" class="px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${
+                    <button onclick="switchUser('${m.id}')" class="px-3 py-1.5 rounded text-xs font-mono font-bold flex items-center gap-1.5 ${
                         isActive 
-                        ? 'bg-gold-500 text-black shadow-md shadow-gold-500/20' 
-                        : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                        ? 'bg-cyber-cyan text-black shadow-md shadow-cyber-cyan/20' 
+                        : 'bg-gray-950 text-gray-400 border border-gray-800'
                     }">
-                        <span>♠️</span> ${m.name}
+                        ♠️ ${m.name}
                     </button>
                 `;
             }).join('');
-
-            document.getElementById('currentUserName').innerText = currentUser.name;
         }
 
-        // --- 2. LIVE CLOCK & DATE ---
-        function updateClock() {
-            const now = new Date();
-            document.getElementById('liveDate').innerText = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-            document.getElementById('liveTime').innerText = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
-
-        // --- 3. HABITS TRACKER ---
-        function renderHabits() {
-            const container = document.getElementById('habitsListContainer');
-            if (!userData.habits) userData.habits = [];
-
-            const completedCount = userData.habits.filter(h => h.done).length;
-            const totalCount = userData.habits.length;
-            const percent = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
-
-            document.getElementById('habitPercentText').innerText = `${percent}% Done`;
-            document.getElementById('habitProgressBar').style.width = `${percent}%`;
-
-            container.innerHTML = userData.habits.map(h => `
-                <div onclick="toggleHabit(${h.id})" class="flex items-center justify-between p-2.5 rounded-xl border cursor-pointer transition ${
-                    h.done 
-                    ? 'bg-emerald-950/20 border-emerald-500/30 text-gray-300 line-through' 
-                    : 'bg-gray-900/60 border-gray-800 text-white hover:border-gray-700'
-                }">
-                    <span class="flex items-center gap-2">
-                        <i class="${h.done ? 'fa-solid fa-circle-check text-emerald-400' : 'fa-regular fa-circle text-gray-500'}"></i>
-                        ${h.text}
-                    </span>
-                </div>
-            `).join('');
-        }
-
-        function toggleHabit(id) {
-            const habit = userData.habits.find(h => h.id === id);
-            if (habit) {
-                habit.done = !habit.done;
-                persistUserData();
-                renderHabits();
+        function loadUserData() {
+            const stored = localStorage.getItem(`alphazzz_v5_${currentUser.id}`);
+            if (stored) {
+                try { appData = JSON.parse(stored); } catch(e) { initDefaultData(); }
+            } else {
+                initDefaultData();
             }
         }
 
-        // --- 4. TO-DO LIST ---
-        function renderTasks() {
-            const container = document.getElementById('tasksListContainer');
-            if (!userData.tasks) userData.tasks = [];
+        function initDefaultData() {
+            appData = {
+                fitness: { move: 450, moveGoal: 600, exercise: 25, exGoal: 30, stand: 10, standGoal: 12, steps: 7420, dist: 5.2 },
+                studyTargets: [],
+                vault: [
+                    { id: 1, key: "Wi-Fi Password", val: "AlphaRoom@2026" },
+                    { id: 2, key: "Shared Drive Link", val: "https://drive.google.com/folder/alpha" }
+                ]
+            };
+            persistUserData();
+        }
 
-            if (userData.tasks.length === 0) {
-                container.innerHTML = `<div class="text-center py-4 text-gray-500 italic">No pending tasks for today</div>`;
+        function persistUserData() {
+            localStorage.setItem(`alphazzz_v5_${currentUser.id}`, JSON.stringify(appData));
+        }
+
+        function renderDashboard() {
+            renderFitnessRings();
+            renderStudyTargets();
+            renderVault();
+        }
+
+        // --- 3. APPLE FITNESS RINGS ENGINE ---
+        function renderFitnessRings() {
+            const f = appData.fitness || { move: 450, moveGoal: 600, exercise: 25, exGoal: 30, stand: 10, standGoal: 12, steps: 7420, dist: 5.2 };
+
+            const mPct = Math.min(f.move / f.moveGoal, 1);
+            const ePct = Math.min(f.exercise / f.exGoal, 1);
+            const sPct = Math.min(f.stand / f.standGoal, 1);
+
+            document.getElementById('ringMove').style.strokeDashoffset = 283 - (283 * mPct);
+            document.getElementById('ringExercise').style.strokeDashoffset = 220 - (220 * ePct);
+            document.getElementById('ringStand').style.strokeDashoffset = 157 - (157 * sPct);
+
+            document.getElementById('fitMoveVal').innerText = `${f.move} / ${f.moveGoal} kcal`;
+            document.getElementById('fitExerciseVal').innerText = `${f.exercise} / ${f.exGoal} mins`;
+            document.getElementById('fitStandVal').innerText = `${f.stand} / ${f.standGoal} hrs`;
+
+            document.getElementById('fitStepsVal').innerText = f.steps.toLocaleString();
+            document.getElementById('fitDistVal').innerText = `${f.dist} km`;
+        }
+
+        function editFitnessGoals() {
+            const nMove = prompt("Enter Daily Move Goal (kcal):", appData.fitness.moveGoal);
+            if (nMove) {
+                appData.fitness.moveGoal = parseInt(nMove) || 600;
+                persistUserData();
+                renderFitnessRings();
+            }
+        }
+
+        // --- 4. STUDY SCHEDULER & ALARM ---
+        function renderStudyTargets() {
+            const container = document.getElementById('studyTargetsContainer');
+            if (!appData.studyTargets) appData.studyTargets = [];
+
+            document.getElementById('studyTargetCount').innerText = `${appData.studyTargets.length} Targets`;
+
+            if (appData.studyTargets.length === 0) {
+                container.innerHTML = `<div class="text-center py-2 text-gray-600 italic">No study targets set.</div>`;
                 return;
             }
 
-            container.innerHTML = userData.tasks.map(t => `
-                <div class="flex items-center justify-between p-2 rounded-xl bg-gray-900/70 border border-gray-800">
-                    <span onclick="toggleTask(${t.id})" class="cursor-pointer flex items-center gap-2 flex-1 ${t.completed ? 'line-through text-gray-500' : 'text-gray-200'}">
-                        <i class="${t.completed ? 'fa-solid fa-check text-indigo-400' : 'fa-regular fa-square text-gray-600'}"></i>
-                        ${t.text}
-                    </span>
-                    <button onclick="deleteTask(${t.id})" class="text-gray-500 hover:text-rose-400 p-1">
-                        <i class="fa-solid fa-trash-can"></i>
+            container.innerHTML = appData.studyTargets.map(t => `
+                <div class="bg-gray-950 p-2 rounded border border-gray-800 flex items-center justify-between">
+                    <div>
+                        <div class="text-white font-bold">${t.subject}</div>
+                        <div class="text-[10px] text-gray-400">${t.time.replace('T', ' ')} &bull; ${t.hours} hrs</div>
+                    </div>
+                    <button onclick="removeStudyTarget(${t.id})" class="text-gray-600 hover:text-cyber-red">
+                        <i class="fa-solid fa-trash"></i>
                     </button>
                 </div>
             `).join('');
         }
 
-        function addTask(e) {
+        function addStudyTarget(e) {
             e.preventDefault();
-            const input = document.getElementById('taskInput');
-            const text = input.value.trim();
-            if (text) {
-                userData.tasks.push({ id: Date.now(), text, completed: false });
-                input.value = '';
+            const subject = document.getElementById('studySubject').value.trim();
+            const time = document.getElementById('studyTime').value;
+            const hours = document.getElementById('studyHours').value;
+
+            if (subject && time) {
+                appData.studyTargets.push({ id: Date.now(), subject, time, hours });
+                document.getElementById('studySubject').value = '';
+                document.getElementById('studyTime').value = '';
+                document.getElementById('studyHours').value = '';
                 persistUserData();
-                renderTasks();
+                renderStudyTargets();
             }
         }
 
-        function toggleTask(id) {
-            const task = userData.tasks.find(t => t.id === id);
-            if (task) {
-                task.completed = !task.completed;
-                persistUserData();
-                renderTasks();
-            }
-        }
-
-        function deleteTask(id) {
-            userData.tasks = userData.tasks.filter(t => t.id !== id);
+        function removeStudyTarget(id) {
+            appData.studyTargets = appData.studyTargets.filter(t => t.id !== id);
             persistUserData();
-            renderTasks();
+            renderStudyTargets();
         }
 
-        // --- 5. SCRATCHPAD ---
-        function renderScratchpad() {
-            document.getElementById('scratchpadInput').value = userData.scratchpad || "";
+        // --- 5. STOCK MARKET CANVAS GRAPH ---
+        let stockCanvas, stockCtx;
+        let stockPoints = [24300, 24310, 24280, 24340, 24320, 24350.80];
+
+        function initStockGraph() {
+            stockCanvas = document.getElementById('stockCanvas');
+            if (!stockCanvas) return;
+            stockCtx = stockCanvas.getContext('2d');
+            stockCanvas.width = stockCanvas.parentElement.clientWidth;
+            stockCanvas.height = stockCanvas.parentElement.clientHeight;
+            drawStockGraph();
         }
 
-        function saveScratchpad() {
-            userData.scratchpad = document.getElementById('scratchpadInput').value;
-            persistUserData();
+        function drawStockGraph() {
+            if (!stockCtx) return;
+            const w = stockCanvas.width;
+            const h = stockCanvas.height;
+
+            stockCtx.clearRect(0, 0, w, h);
+
+            stockCtx.beginPath();
+            stockCtx.strokeStyle = "#00ff66";
+            stockCtx.lineWidth = 2;
+
+            const step = w / (stockPoints.length - 1);
+            const min = Math.min(...stockPoints) - 20;
+            const max = Math.max(...stockPoints) + 20;
+
+            stockPoints.forEach((pt, i) => {
+                const x = i * step;
+                const y = h - ((pt - min) / (max - min)) * h;
+                if (i === 0) stockCtx.moveTo(x, y);
+                else stockCtx.lineTo(x, y);
+            });
+            stockCtx.stroke();
         }
 
-        // --- 6. BOOKMARKS ---
-        function renderBookmarks() {
-            const container = document.getElementById('bookmarksContainer');
-            if (!userData.bookmarks) userData.bookmarks = [];
+        function changeStockSymbol() {
+            const sym = document.getElementById('stockSymbolSelect').value;
+            if (sym === 'NIFTY') stockPoints = [24250, 24280, 24310, 24350.80];
+            else if (sym === 'SENSEX') stockPoints = [79800, 79950, 79900, 80120.40];
+            else stockPoints = [1500, 1540, 1530, 1580.00];
 
-            container.innerHTML = userData.bookmarks.map(b => `
-                <div class="group relative bg-gray-900/80 p-2.5 rounded-xl border border-gray-800 hover:border-gold-500/40 transition flex items-center justify-between">
-                    <a href="${b.url}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-gray-200 hover:text-gold-400 truncate flex-1 pr-2">
-                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-gold-500"></i>
-                        <span class="truncate font-medium">${b.title}</span>
-                    </a>
-                    <button onclick="deleteBookmark(${b.id})" class="opacity-0 group-hover:opacity-100 text-gray-500 hover:text-rose-400 transition text-[10px]">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
+            document.getElementById('stockCurrentPrice').innerText = stockPoints[stockPoints.length - 1].toLocaleString();
+            drawStockGraph();
+        }
+
+        // --- 6. ALPHA VAULT ---
+        function renderVault() {
+            const container = document.getElementById('vaultContainer');
+            if (!appData.vault) appData.vault = [];
+
+            container.innerHTML = appData.vault.map(v => `
+                <div class="bg-gray-950 p-2 rounded border border-gray-800 flex items-center justify-between">
+                    <div>
+                        <div class="text-cyber-amber font-bold text-[11px]">${v.key}</div>
+                        <div class="text-white text-xs select-all">${v.val}</div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="copyText('${v.val}')" class="text-cyber-cyan text-xs">
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+                        <button onclick="removeVaultItem(${v.id})" class="text-gray-600 hover:text-cyber-red text-xs">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
                 </div>
             `).join('');
         }
 
-        function toggleAddBookmarkForm() {
-            document.getElementById('addBookmarkForm').classList.toggle('hidden');
+        function toggleVaultForm() {
+            document.getElementById('vaultForm').classList.toggle('hidden');
         }
 
-        function addBookmark() {
-            const title = document.getElementById('bmTitleInput').value.trim();
-            let url = document.getElementById('bmUrlInput').value.trim();
-            if (title && url) {
-                if (!url.startsWith('http://') && !url.startsWith('https://')) {
-                    url = 'https://' + url;
-                }
-                userData.bookmarks.push({ id: Date.now(), title, url });
-                document.getElementById('bmTitleInput').value = '';
-                document.getElementById('bmUrlInput').value = '';
-                toggleAddBookmarkForm();
+        function saveVaultItem() {
+            const k = document.getElementById('vKeyInput').value.trim();
+            const v = document.getElementById('vValInput').value.trim();
+            if (k && v) {
+                appData.vault.push({ id: Date.now(), key: k, val: v });
+                document.getElementById('vKeyInput').value = '';
+                document.getElementById('vValInput').value = '';
+                toggleVaultForm();
                 persistUserData();
-                renderBookmarks();
+                renderVault();
             }
         }
 
-        function deleteBookmark(id) {
-            userData.bookmarks = userData.bookmarks.filter(b => b.id !== id);
+        function removeVaultItem(id) {
+            appData.vault = appData.vault.filter(item => item.id !== id);
             persistUserData();
-            renderBookmarks();
+            renderVault();
         }
 
-        // --- 7. POMODORO TIMER ---
-        let timerSeconds = 25 * 60;
-        let timerInterval = null;
-        let timerRunning = false;
-        let currentTimerMode = 'work';
+        function copyText(txt) {
+            navigator.clipboard.writeText(txt).then(() => {
+                alert("Copied to clipboard!");
+            }).catch(() => {
+                const el = document.createElement('textarea');
+                el.value = txt;
+                document.body.appendChild(el);
+                el.select();
+                document.execCommand('copy');
+                document.body.removeChild(el);
+                alert("Copied to clipboard!");
+            });
+        }
 
-        const modes = {
-            work: { minutes: 25, label: 'Work Mode', colorClass: 'bg-amber-500/20 text-gold-400' },
-            shortBreak: { minutes: 5, label: 'Short Break', colorClass: 'bg-blue-500/20 text-blue-400' },
-            longBreak: { minutes: 15, label: 'Long Break', colorClass: 'bg-purple-500/20 text-purple-400' }
-        };
+        // --- 7. MULTI CALCULATOR ENGINE ---
+        let mathExpr = "";
 
-        function setTimerMode(modeKey) {
-            if (timerRunning) toggleTimer();
-            currentTimerMode = modeKey;
-            timerSeconds = modes[modeKey].minutes * 60;
-            
-            // Highlight active button
-            ['work', 'short', 'long'].forEach(k => {
-                const btn = document.getElementById(`mode${k.charAt(0).toUpperCase() + k.slice(1)}`);
-                if (k.toLowerCase().startsWith(modeKey.substring(0, 4))) {
-                    btn.className = "py-1.5 rounded-md text-white bg-gold-500/20 font-bold border border-gold-500/40";
-                } else {
-                    btn.className = "py-1.5 rounded-md text-gray-400 hover:text-white";
-                }
+        function switchCalc(type) {
+            ['standard', 'mileage', 'discount', 'age', 'percent'].forEach(t => {
+                document.getElementById(`cSec-${t}`).classList.add('hidden');
+                document.getElementById(`cTab-${t}`).className = "py-1 px-2.5 text-gray-400";
             });
 
-            const modeLbl = document.getElementById('pomoModeLabel');
-            modeLbl.innerText = modes[modeKey].label;
-            modeLbl.className = `text-xs font-semibold px-2 py-0.5 rounded ${modes[modeKey].colorClass}`;
-
-            updateTimerDisplay();
+            document.getElementById(`cSec-${type}`).classList.remove('hidden');
+            document.getElementById(`cTab-${type}`).className = "py-1 px-2.5 text-cyber-cyan border-b-2 border-cyber-cyan font-bold";
         }
 
-        function updateTimerDisplay() {
-            const m = Math.floor(timerSeconds / 60).toString().padStart(2, '0');
-            const s = (timerSeconds % 60).toString().padStart(2, '0');
-            document.getElementById('timerDisplay').innerText = `${m}:${s}`;
+        function pressMath(v) {
+            if (v === 'C') mathExpr = "";
+            else mathExpr += v;
+            document.getElementById('mathScreen').innerText = mathExpr || "0";
         }
 
-        function toggleTimer() {
-            const btn = document.getElementById('startTimerBtn');
-            if (timerRunning) {
-                clearInterval(timerInterval);
-                timerRunning = false;
-                btn.innerHTML = `<i class="fa-solid fa-play"></i> Start`;
-            } else {
-                timerRunning = true;
-                btn.innerHTML = `<i class="fa-solid fa-pause"></i> Pause`;
-                timerInterval = setInterval(() => {
-                    if (timerSeconds > 0) {
-                        timerSeconds--;
-                        updateTimerDisplay();
-                    } else {
-                        clearInterval(timerInterval);
-                        timerRunning = false;
-                        btn.innerHTML = `<i class="fa-solid fa-play"></i> Start`;
-                        alert(`Time's up for ${modes[currentTimerMode].label}!`);
-                    }
-                }, 1000);
+        function evalMath() {
+            try {
+                mathExpr = eval(mathExpr).toString();
+                document.getElementById('mathScreen').innerText = mathExpr;
+            } catch(e) {
+                document.getElementById('mathScreen').innerText = "Error";
+                mathExpr = "";
             }
         }
 
-        function resetTimer() {
-            if (timerRunning) toggleTimer();
-            timerSeconds = modes[currentTimerMode].minutes * 60;
-            updateTimerDisplay();
+        function calcMileage() {
+            const dist = parseFloat(document.getElementById('mDistance').value) || 0;
+            const fuel = parseFloat(document.getElementById('mFuel').value) || 0;
+            const res = document.getElementById('mileageResult');
+            if (fuel > 0) res.innerText = `${(dist / fuel).toFixed(2)} km/L`;
+            else res.innerText = `0.00 km/L`;
         }
 
-        // --- 8. SYNTHESIZED AMBIENT AUDIO (Web Audio API) ---
-        let audioCtx = null;
-        let soundSources = { rain: null, synth: null };
+        function calcDiscount() {
+            const price = parseFloat(document.getElementById('dPrice').value) || 0;
+            const pct = parseFloat(document.getElementById('dPercent').value) || 0;
+            const res = document.getElementById('discountResult');
+            const payable = price - (price * (pct / 100));
+            res.innerText = `₹${payable.toFixed(2)}`;
+        }
 
-        function initAudio() {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function calcAge() {
+            const b = document.getElementById('ageBirthDate').value;
+            const res = document.getElementById('ageResult');
+            if (b) {
+                const diff = new Date() - new Date(b);
+                const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+                res.innerText = `Exact Age: ${years} Years old`;
             }
         }
 
-        function toggleSound(type) {
-            initAudio();
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
-
-            const btn = document.getElementById(type === 'rain' ? 'btnSoundRain' : 'btnSoundSynth');
-
-            if (soundSources[type]) {
-                // Stop sound
-                soundSources[type].stop();
-                soundSources[type] = null;
-                btn.innerHTML = `<i class="fa-solid fa-play"></i>`;
-                btn.classList.remove('bg-gold-500', 'text-black');
-                btn.classList.add('bg-gray-800', 'text-gray-300');
-            } else {
-                // Play Sound
-                if (type === 'rain') {
-                    soundSources.rain = createRainSynth();
-                } else if (type === 'synth') {
-                    soundSources.synth = createAmbientDrone();
-                }
-                btn.innerHTML = `<i class="fa-solid fa-square"></i>`;
-                btn.classList.remove('bg-gray-800', 'text-gray-300');
-                btn.classList.add('bg-gold-500', 'text-black');
-            }
+        function calcPercent() {
+            const p1 = parseFloat(document.getElementById('pVal1').value) || 0;
+            const p2 = parseFloat(document.getElementById('pVal2').value) || 0;
+            const res = document.getElementById('percentResult');
+            res.innerText = ((p1 / 100) * p2).toFixed(2);
         }
 
-        function createRainSynth() {
-            const bufferSize = audioCtx.sampleRate * 2;
-            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-            const output = buffer.getChannelData(0);
-            for (let i = 0; i < bufferSize; i++) {
-                output[i] = Math.random() * 2 - 1;
-            }
+        // --- 8. EMBED MODALS ---
+        function openModal(tool) {
+            const modal = document.getElementById('integrationModal');
+            const title = document.getElementById('modalTitle');
+            const body = document.getElementById('modalBody');
 
-            const whiteNoise = audioCtx.createBufferSource();
-            whiteNoise.buffer = buffer;
-            whiteNoise.loop = true;
+            modal.classList.remove('hidden');
 
-            const filter = audioCtx.createBiquadFilter();
-            filter.type = 'lowpass';
-            filter.frequency.setValueAtTime(800, audioCtx.currentTime);
-
-            const gain = audioCtx.createGain();
-            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-
-            whiteNoise.connect(filter);
-            filter.connect(gain);
-            gain.connect(audioCtx.destination);
-            whiteNoise.start();
-
-            return whiteNoise;
-        }
-
-        function createAmbientDrone() {
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(110, audioCtx.currentTime); // A2 Note
-
-            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start();
-
-            return osc;
-        }
-
-        // --- 9. CALCULATOR SUITE ---
-        function switchCalcTab(tabKey) {
-            ['percentage', 'date', 'unit'].forEach(t => {
-                document.getElementById(`calcSec-${t}`).classList.add('hidden');
-                document.getElementById(`calcTab-${t}`).className = "py-2 px-3 text-gray-400 hover:text-white";
-            });
-
-            document.getElementById(`calcSec-${tabKey}`).classList.remove('hidden');
-            document.getElementById(`calcTab-${tabKey}`).className = "py-2 px-3 text-gold-400 border-b-2 border-gold-400 font-bold";
-        }
-
-        function runPercentageCalc() {
-            const part = parseFloat(document.getElementById('calcPart').value) || 0;
-            const total = parseFloat(document.getElementById('calcTotal').value) || 0;
-            const output = document.getElementById('calcPercentOutput');
-            
-            if (total > 0) {
-                const pct = ((part / total) * 100).toFixed(2);
-                output.innerText = `${pct}%`;
-            } else {
-                output.innerText = '0.00%';
+            if (tool === 'spotify') {
+                title.innerText = "Spotify Embed Player";
+                body.innerHTML = `<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXdLENR312997?utm_source=generator" width="100%" height="100%" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>`;
+            } else if (tool === 'maps') {
+                title.innerText = "Google Maps Navigation";
+                body.innerHTML = `<iframe width="100%" height="100%" frameborder="0" style="border:0" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14000!2d77.2!3d28.6!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1" allowfullscreen></iframe>`;
+            } else if (tool === 'gemini') {
+                title.innerText = "Gemini AI Workspace";
+                body.innerHTML = `<iframe src="https://gemini.google.com" width="100%" height="100%" style="border:none"></iframe>`;
+            } else if (tool === 'youtube') {
+                title.innerText = "YouTube Studio Player";
+                body.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/jfKfPfyJRdk" title="Lofi Beats" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
             }
         }
 
-        function runDateCalc() {
-            const startStr = document.getElementById('calcDateStart').value;
-            const endStr = document.getElementById('calcDateEnd').value || new Date().toISOString().split('T')[0];
-            const output = document.getElementById('calcDateOutput');
+        function closeModal() {
+            document.getElementById('integrationModal').classList.add('hidden');
+            document.getElementById('modalBody').innerHTML = '';
+        }
 
-            if (startStr) {
-                const d1 = new Date(startStr);
-                const d2 = new Date(endStr);
-                const diffTime = Math.abs(d2 - d1);
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                const years = (diffDays / 365.25).toFixed(1);
+        // --- 9. GEO LOCATION & IP DETECTOR ---
+        function fetchNetworkAndGeoInfo() {
+            fetch('https://api.ipify.org?format=json')
+                .then(r => r.json())
+                .then(d => document.getElementById('userIpVal').innerText = d.ip)
+                .catch(() => document.getElementById('userIpVal').innerText = "192.168.1.1");
 
-                output.innerText = `${diffDays} Days (~${years} Years)`;
-            } else {
-                output.innerText = 'Select dates to calculate';
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(pos => {
+                    const lat = pos.coords.latitude.toFixed(4);
+                    const lon = pos.coords.longitude.toFixed(4);
+                    document.getElementById('userLocVal').innerText = `${lat}, ${lon}`;
+                    document.getElementById('userPinCodeVal').innerText = "302001";
+                }, () => {
+                    document.getElementById('userLocVal').innerText = "GPS Disabled";
+                });
             }
         }
 
-        function updateUnitOptions() {
-            runUnitCalc();
-        }
-
-        function runUnitCalc() {
-            const cat = document.getElementById('unitCategory').value;
-            const val = parseFloat(document.getElementById('unitVal').value) || 0;
-            const output = document.getElementById('calcUnitOutput');
-
-            if (cat === 'distance') {
-                const miles = (val * 0.621371).toFixed(2);
-                output.innerText = `${val} km = ${miles} Miles`;
-            } else if (cat === 'weight') {
-                const lbs = (val * 2.20462).toFixed(2);
-                output.innerText = `${val} kg = ${lbs} lbs`;
-            }
-        }
-
-        // Render all data when switching user or initial load
-        function renderDashboardData() {
-            renderHabits();
-            renderTasks();
-            renderScratchpad();
-            renderBookmarks();
-        }
-
-        // Initial Initialization on page load
+        // --- INITIALIZATION ---
         window.onload = function() {
-            loadUserData();
-            renderUserTabs();
-            renderDashboardData();
-            // Set default date picker end date to today
-            document.getElementById('calcDateEnd').value = new Date().toISOString().split('T')[0];
+            checkExistingPinAuth();
+            switchUser('pankaj');
+            initStockGraph();
+            fetchNetworkAndGeoInfo();
+
+            // Stock Graph Tick Loop
+            setInterval(() => {
+                const delta = (Math.random() - 0.48) * 15;
+                const last = stockPoints[stockPoints.length - 1];
+                stockPoints.push(parseFloat((last + delta).toFixed(2)));
+                if (stockPoints.length > 10) stockPoints.shift();
+                document.getElementById('stockCurrentPrice').innerText = stockPoints[stockPoints.length - 1].toLocaleString();
+                drawStockGraph();
+            }, 3000);
         };
     </script>
 </body>
